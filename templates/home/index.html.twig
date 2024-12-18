@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'accueil
+{% endblock %}
+
+{% block body %}
+	<div class="text-center">
+		<h1 class="text-primary mb-5">Choisir un type de Ketouva</h1>
+
+		<hr>
+
+		<a href="{{path('create_ketouva', {'type':'habad'})}}">
+			<span class="lien-1">
+				Ketouva Habad / Achkénaz</span>
+			<br>
+			<span class="lien-2">
+				Bétoula</span>
+		</a>
+		<hr>
+
+		<a href="{{path('create_ketouva', {'type':'sefarad'})}}">
+			<span class="lien-1">
+				Ketouva Sefarad</span>
+			<br>
+			<span class="lien-2">
+				Bétoula</span>
+		</a>
+		<hr>
+
+		<a href="{{path('create_ketouva', {'type':'5050'})}}">
+			<span class="lien-1">
+				Ketouva 50-50</span>
+			<br>
+			<span class="lien-2">
+				Divorcée / Veuve / Non bétoula / Convertie</span>
+		</a>
+		<hr>
+
+		<a href="{{path('create_ketouva', {'type':'taouta'})}}">
+			<span class="lien-1">
+				Ketouva Déichtaka'h taouta</span>
+			<br>
+			<span class="lien-2">
+				Ketouva contenant une erreur</span>
+		</a>
+		<hr>
+
+		<a href="{{path('create_ketouva', {'type':'irseka'})}}">
+			<span class="lien-1">
+				Ketouva Déirseka</span>
+			<br>
+			<span class="lien-2">
+				Ketouva perdue</span>
+		</a>
+		<hr>
+	</div>
+{% endblock %}

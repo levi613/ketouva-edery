@@ -1,0 +1,17 @@
+.telecharger-ketouva {
+	width: 98%;
+	/* max-width:630px;  */
+	/* margin:auto; */
+}
+
+.affichage-ketouva {
+	width: 98%;
+	/* max-width:630px;  */
+	background-color: white;
+	padding: 7px;
+	/* margin:auto; */
+}
+
+.affichage-guet {
+	width: 98%;
+}

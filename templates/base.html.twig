@@ -2,16 +2,34 @@
 <html>
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        {# <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>"> #}
+        <!-- Favicons -->
+        <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
+        <link href="{{ asset('assets/img/favicon.png') }}" rel="apple-touch-icon">
         {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('style/bootstrap.min.css') }}">
+			<link rel="stylesheet" href="{{ asset('style/style.css') }}">
+			<link rel="stylesheet" href="{{ asset('style/style-mobile.css') }}" media="screen and (max-width: 679px)">
+			<link href="{{ asset('style/style-ordi.css') }}" media="screen and (min-width: 679px)" rel="stylesheet">
         {% endblock %}
 
         {% block javascripts %}
-            {% block importmap %}{{ importmap('app') }}{% endblock %}
+            <script src="{{ asset('script/bootstrap.bundle.min.js') }}"></script>
+            {# {% block importmap %}{{ importmap('app') }}{% endblock %} #}
         {% endblock %}
     </head>
     <body>
+        {% include "__navbar.html.twig" %}
+        <div class="container-sm mt-4">
+
+        {% for flashError in app.flashes('danger') %}
+            <div class="alert alert-dismissible alert-danger" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                {{ flashError }}
+            </div>
+        {% endfor %}
         {% block body %}{% endblock %}
     </body>
 </html>

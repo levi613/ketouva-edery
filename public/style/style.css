@@ -1,0 +1,32 @@
+body
+{
+    background-color: rgb(230, 230, 230);
+}
+
+.lien-1
+{
+    font-size: 2em;
+}
+
+.lien-2
+{
+    font-size: 1.2em;
+}
+
+.form-ketouva
+{
+    /* width:750px; */
+}
+
+.meme-ligne
+{
+    display: inline-flex;
+    white-space:nowrap; 
+}
+
+
+.meme-ligne2 {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}

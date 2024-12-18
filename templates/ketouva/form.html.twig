@@ -1,0 +1,242 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ketouva
+	{{typeKetouva}}
+{% endblock %}
+
+{% block body %}
+	{% set titrePage = "" %}
+	{% if typeKetouva=="habad" %}
+		{% set titrePage = "Habad/Achkénaz" %}
+	{% elseif typeKetouva=="sefarad" %}
+		{% set titrePage = "Sefarad" %}
+	{% elseif typeKetouva=="5050" %}
+		{% set titrePage = "50-50" %}
+	{% elseif lienActif=="taouta" %}
+		{% set titrePage = "Déichtaka'h taouta" %}
+	{% elseif lienActif=="irseka" %}
+		{% set titrePage = "Déirséka" %}
+	{% endif %}
+
+	<h1 class="text-decoration-underline">Formulaire Ketouva
+		{{titrePage}}</h1>
+	<br>
+	<div class="form-ketouva">
+		{{ form_start(form) }}
+
+		<div class="row">
+
+			{% if typeKetouva == 'taouta' or typeKetouva == 'irseka' %}
+				<h3>Date de la remise de la ketouva</h3>
+			{% else %}
+				<h3>Date</h3>
+			{% endif %}
+			
+			<div class="col-md-3 col-sm-12">
+				{{ form_row(form.jourSemaine) }}
+			</div>
+
+			<div class="col-md-3 col-sm-12">
+				{{ form_row(form.jourMois) }}
+			</div>
+
+			<div class="col-md-3 col-sm-12">
+				{{ form_row(form.mois) }}
+			</div>
+
+			<div class="col-md-3 col-sm-12">
+				{{ form_row(form.annee) }}
+			</div>
+
+			<hr>
+
+			{% if typeKetouva == 'taouta' or typeKetouva == 'irseka' %}
+				<h3>Date du mariage</h3>
+
+				{% set displayDate = 'block' %}
+				{% if typeKetouva == 'irseka' %}
+					{{ form_row(form.dateMariageConnue) }}
+					{% set displayDate = 'none' %}
+				{% endif %}
+
+				<div class="col-md-3 col-sm-12" id="dateMariage1" style="display:{{displayDate}}">
+					{{ form_row(form.jourSemaineMariage) }}
+				</div>
+
+				<div class="col-md-3 col-sm-12" id="dateMariage2" style="display:{{displayDate}}">
+					{{ form_row(form.jourMoisMariage) }}
+				</div>
+
+				<div class="col-md-3 col-sm-12" id="dateMariage3" style="display:{{displayDate}}">
+					{{ form_row(form.moisMariage) }}
+				</div>
+
+				<div class="col-md-3 col-sm-12" id="dateMariage4" style="display:{{displayDate}}">
+					{{ form_row(form.anneeMariage) }}
+				</div>
+
+				<hr>
+			{% endif %}
+
+			<h3>Hatan</h3>
+			<div class="col-md-4 col-sm-12">
+				<div class="mb-3">
+					{{ form_label(form.nomHatan) }}
+					{{ form_widget(form.titreHatan) }}
+					<div class="input-group">
+						<span class="input-group-text fw-bold">'שי</span>
+						{{ form_widget(form.nomHatan) }}
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4 col-sm-12">
+				<div class="mb-3">
+					{{ form_label(form.nomPereHatan) }}
+					{{ form_widget(form.titrePereHatan) }}
+					<div class="input-group">
+						<span class="input-group-text fw-bold">'שי</span>
+						{{ form_widget(form.nomPereHatan) }}
+					</div>
+				</div>
+			</div>
+
+			<hr>
+
+
+			{% if typeKetouva != '5050' %}
+				<div class="d-flex flex-nowrap align-middle">
+					<h3>Kala</h3>&nbsp;&nbsp;&nbsp;&nbsp;
+					<div class="pt-2">{{ form_row(form.orpheline) }}</div>
+				</div>
+
+				{% if typeKetouva == 'taouta' or typeKetouva == 'irseka' %}
+					<div class="mb-2">
+						{{ form_widget(form.statutKala) }}
+					</div>
+				{% endif %}
+			{% else %}
+				<h3>Kala</h3>
+				<div class="mb-2">
+					{{ form_widget(form.statutKala) }}
+				</div>
+			{% endif %}
+
+			<div class="col-md-4 col-sm-12">
+				<div class="mb-3">
+					{{ form_label(form.nomKala) }}
+					<div>
+						<div class="form-check form-check-inline"><input type="radio" id="ketouva_form_titreKala" name="titreKala" required="required" checked class="form-check-input" value="1">
+							<label class="form-check-label required" for="ketouva_form_titreKala">מרת</label>
+						</div>
+					</div>
+					<div class="input-group">
+						<span class="input-group-text fw-bold">'שתחי</span>
+						{{ form_widget(form.nomKala) }}
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-4 col-sm-12">
+				<div class="mb-3">
+					{{ form_label(form.nomPereKala) }}
+					{{ form_widget(form.titrePereKala) }}
+					<div class="input-group">
+						<span class="input-group-text fw-bold">'שי</span>
+						{{ form_widget(form.nomPereKala) }}
+					</div>
+				</div>
+			</div>
+
+			<hr>
+
+
+			<h3>Lieu</h3>
+			<div class="col-md-4 col-sm-12">
+				{{ form_row(form.ville) }}
+			</div>
+
+			{% if typeKetouva == 'taouta' or typeKetouva == 'irseka' %}
+				<div class="col-md-4 col-sm-12">
+					{{ form_row(form.villeMariage) }}
+				</div>
+			{% endif %}
+
+			<hr>
+
+
+			<h3>Enregistrement</h3>
+			<div class="col-md-4 col-sm-12">
+				{{ form_row(form.nomFichier) }}
+			</div>
+
+			<hr>
+
+		</div>
+		<div class="meme-ligne">
+			{{ form_row(form.save) }}
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			{{ form_row(form.reset) }}
+		</div>
+
+		{{ form_end(form) }}
+	</div>
+
+
+	<script>
+		{% if typeKetouva == '5050' or typeKetouva == 'taouta' or typeKetouva == 'irseka' %}
+			function autoRempli() {
+				if (document.getElementById('ketouva_form_statutKala_{{typeKetouva == "5050"?"3":"4"}}').checked == true) {
+					if (document.getElementById('ketouva_form_nomPereKala').value == "") {
+						document.getElementById('ketouva_form_nomPereKala').value = 'אברהם אבינו';
+						document.getElementById('ketouva_form_titrePereKala_2').checked = true;
+					}
+				} else {
+					if (document.getElementById('ketouva_form_nomPereKala').value == "אברהם אבינו") {
+						document.getElementById('ketouva_form_nomPereKala').value = '';
+
+						if (document.getElementById('ketouva_form_titrePereKala_2').checked == true) {
+							document.getElementById('ketouva_form_titrePereKala_0').checked = true;
+						}
+					}
+
+				}
+			}
+		{% endif %}
+
+		{% if typeKetouva == 'irseka' %}
+			var dateMariage1 = document.getElementById('dateMariage1');
+			var dateMariage2 = document.getElementById('dateMariage2');
+			var dateMariage3 = document.getElementById('dateMariage3');
+			var dateMariage4 = document.getElementById('dateMariage4');
+
+			if (document.getElementById('ketouva_form_dateMariageConnue').checked == true) {
+				dateMariage1.style.display = 'block';
+				dateMariage2.style.display = 'block';
+				dateMariage3.style.display = 'block';
+				dateMariage4.style.display = 'block';
+			}
+
+			function afficheDateMariage() {
+				var dateMariage1 = document.getElementById('dateMariage1');
+				var dateMariage2 = document.getElementById('dateMariage2');
+				var dateMariage3 = document.getElementById('dateMariage3');
+				var dateMariage4 = document.getElementById('dateMariage4');
+
+				if (document.getElementById('ketouva_form_dateMariageConnue').checked == true) {
+					dateMariage1.style.display = 'block';
+					dateMariage2.style.display = 'block';
+					dateMariage3.style.display = 'block';
+					dateMariage4.style.display = 'block';
+				} else {
+					dateMariage1.style.display = 'none';
+					dateMariage2.style.display = 'none';
+					dateMariage3.style.display = 'none';
+					dateMariage4.style.display = 'none';
+				}
+			}
+		{% endif %}
+	</script>
+
+
+{% endblock %}

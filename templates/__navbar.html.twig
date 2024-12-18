@@ -1,0 +1,73 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="container-fluid">
+		<a class="navbar-brand active" href="{{path('app_home')}}">Accueil</a>
+
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+
+
+		{% set habadActive = "" %}
+		{% set sefaradActive = "" %}
+		{% set active5050 = "" %}
+		{% set guetActive = "" %}
+		{% set listKetouvaActive = "" %}
+		{% set taoutaActive = "" %}
+		{% set irsekaActive = "" %}
+
+		{% if lienActif is defined %}
+
+			{% if lienActif == "habad" %}
+				{% set habadActive = "active" %}
+
+			{% elseif lienActif == "sefarad" %}
+				{% set sefaradActive = "active" %}
+
+			{% elseif lienActif == "5050" %}
+				{% set active5050 = "active" %}
+
+			{% elseif lienActif == "taouta" %}
+				{% set taoutaActive = "active" %}
+
+			{% elseif lienActif == "irseka" %}
+				{% set irsekaActive = "active" %}
+
+			{% elseif lienActif == "listKetouva" %}
+				{% set listKetouvaActive = "active" %}
+			{% endif %}
+
+		{% endif %}
+
+
+		<div class="collapse navbar-collapse" id="navbarColor03">
+			<ul class="navbar-nav me-auto">
+				{% if app.user %}
+					<li class="nav-item">
+						<a class="nav-link {{habadActive}}" href="{{path('create_ketouva', {'type':'habad'})}}">Habad</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link {{sefaradActive}}"  href="{{path('create_ketouva', {'type':'sefarad'})}}">Sefarad</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link {{active5050}}"  href="{{path('create_ketouva', {'type':'5050'})}}">50-50</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link {{taoutaActive}}"  href="{{path('create_ketouva', {'type':'taouta'})}}">Déichtaka'h taouta</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link {{irsekaActive}}"  href="{{path('create_ketouva', {'type':'irseka'})}}">Déirseka</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link {{listKetouvaActive}}"  href="{{path('ketouva_list')}}">Liste Ketouvot</a>
+					</li>
+				{% endif %}
+			</ul>
+
+			{% if app.user %}
+				<a class="nav-link text-danger" href="{{path('app_logout')}}">Déconnexion</a>
+			{% else %}
+				<a class="btn btn-primary" href="{{path('app_login')}}">Connexion</a>
+			{% endif %}
+		</div>
+	</div>
+</nav>
