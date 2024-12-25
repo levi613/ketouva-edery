@@ -9,9 +9,18 @@ use App\Entity\Ketouva;
 
 class CreateKetouva
 {
-    public function genereTextKetouva(Ketouva $ketouva, $provenanceKala, $moisKetouva, $moisMariage = "", $dateMariage = "", $phrasePasDeDate = "")
+    private $calculeMois;
+    private $calculeProvenanceKala;
+
+    public function __construct(CalculeMois $calculeMois, CalculeProvenanceKala $calculeProvenanceKala)
     {
-        $modele = $this->genereTextKetouvaHtml($ketouva, $provenanceKala, $moisKetouva, $moisMariage, $dateMariage, $phrasePasDeDate);
+        $this->calculeMois = $calculeMois;
+        $this->calculeProvenanceKala = $calculeProvenanceKala;
+    }
+
+    public function genereTextKetouva(Ketouva $ketouva)
+    {
+        $modele = $this->genereTextKetouvaHtml($ketouva);
 
         $modele = str_replace('<strong><u>', '', $modele);
         $modele = str_replace('</u></strong>', '', $modele);
@@ -22,9 +31,42 @@ class CreateKetouva
     }
 
 
-    public function genereTextKetouvaHtml(Ketouva $ketouva, $provenanceKala, $moisKetouva, $moisMariage = "", $dateMariage = "", $phrasePasDeDate = "")
+    public function genereTextKetouvaHtml(Ketouva $ketouva)
     {
         $type = $ketouva->getTypeKetouva();
+
+        $provenanceKala = $this->calculeProvenanceKala->getProvenanceKala($ketouva);
+        $moisKetouva = $this->calculeMois->getMois($ketouva->getMois(), $ketouva->getJourMois());
+
+        $moisMariage = "";
+        $phrasePasDeDate = "";
+        $dateMariage = "";
+
+        if ($type == TypeKetouva::TAOUTA) {
+            $moisMariage = $this->calculeMois->getMois($ketouva->getMoisMariage(), $ketouva->getJourMoisMariage());
+        }
+
+        if ($ketouva->getTypeKetouva() == TypeKetouva::IRKESSA) {
+            // si on connait pas la date du mariage
+            if (!$ketouva->isDateMariageConnue()) {
+                $ketouva->setJourSemaineMariage(null);
+                $ketouva->setJourMoisMariage(null);
+                $ketouva->setMoisMariage(null);
+                $ketouva->setAnneeMariage(null);
+
+                $dateMariage = "לי";
+                $phrasePasDeDate = "השתא כי סהדי קמאי דחתימו תחות כתובתא קמייתא דאירכסא ליתנייהו וזמן כתובתא קמייתא לא ידענא";
+            } else {
+                // si on connait la date du mariage
+                $moisMariage = $this->calculeMois->getMois($ketouva->getMoisMariage(), $ketouva->getJourMoisMariage());
+                $dateMariage = 'לי שהיה ב' . $ketouva->getJourSemaineMariage()->getHebreu() .
+                    ' בשבת ' . $ketouva->getJourMoisMariage()->getHebreu() .
+                    ' לחדש ' . $moisMariage . ' שנת ' . $ketouva->getAnneeMariage()->getHebreu() . ' ' .
+                    'לבריאת העולם';
+
+                $phrasePasDeDate = "השתא";
+            }
+        }
 
         switch ($type) {
             case TypeKetouva::HABAD:
@@ -89,6 +131,8 @@ class CreateKetouva
         $modele = str_replace('nomKala', '<strong><u>' . $ketouva->getNomKala() . '</u></strong>', $modele);
         $modele = str_replace('nomPereKala', '<strong><u>' . $ketouva->getTitrePereKala() . ' ' . $ketouva->getNomPereKala() . '</u></strong>', $modele);
         $modele = str_replace('provenanceKala', '<strong><u>' . $provenanceKala . '</u></strong>', $modele);
+
+        $modele = str_replace('מדאוריתא', '<strong><u>מדאוריתא</u></strong>', $modele);
 
         if ($type == TypeKetouva::CINQUANTE || TypeKetouva::TAOUTA || $type == TypeKetouva::IRKESSA) {
             $modele = str_replace('statutKala', '<strong><u>' . $ketouva->getStatutKala() . '</u></strong>', $modele);

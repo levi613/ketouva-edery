@@ -17,10 +17,10 @@
 	<br>
 
 	{# <a download target="_blanc" href="{{asset('ketouvot/'~ketouva.nomFichier~'.docx')}}" class=" btn btn-primary telecharger-ketouva">Telecharger la ketouva</a> #}
-	<br><br>
+	{# <br><br> #}
 
 	<h5>
-		{# <a href="{{path('ketouva_'~type|lower~'_edit',{'id':ketouva.id})}}">Apporter une correction</a> #}
+		<a href="{{path('edit_ketouva',{'id':ketouva.id})}}">Apporter une correction</a>
 	</h5>
 
 	<div class="affichage-ketouva">

@@ -94,6 +94,9 @@ class Ketouva
     #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
     private ?\DateTimeInterface $editedAt = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?\DateTimeImmutable $deletedAt = null;
+
     public function __construct()
     {
         // titre personne par default  (reb)
@@ -102,6 +105,8 @@ class Ketouva
         $this->titreHatan = $titreDefault;
         $this->titrePereHatan = $titreDefault;
         $this->titrePereKala = $titreDefault;
+
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -405,6 +410,18 @@ class Ketouva
     public function setEditedAt(?\DateTimeInterface $editedAt): static
     {
         $this->editedAt = $editedAt;
+
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeImmutable
+    {
+        return $this->deletedAt;
+    }
+
+    public function setDeletedAt(?\DateTimeImmutable $deletedAt): static
+    {
+        $this->deletedAt = $deletedAt;
 
         return $this;
     }
