@@ -4,6 +4,7 @@ namespace App\Form;;
 
 use App\Constant\StatutKala as ConstantStatutKala;
 use App\Constant\TitrePersonne as ConstantTitrePersonne;
+use App\Constant\TypeKetouva;
 use App\Entity\Annee;
 use App\Entity\JourMois;
 use App\Entity\JourSemaine;
@@ -33,23 +34,26 @@ class KetouvaFormType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
-        $titres = [
-            ConstantTitrePersonne::REB => ConstantTitrePersonne::REB,
-            ConstantTitrePersonne::HARAV => ConstantTitrePersonne::HARAV,
-            'Rien' => ConstantTitrePersonne::RIEN
-        ];
+        $titres = [];
+        foreach ((new \ReflectionClass(ConstantTitrePersonne::class))->getConstants() as $value) {
+            if ($value == '') {
+                $titres['Rien'] = $value;
+            } else {
+                $titres[$value] = $value;
+            }
+        }
+
 
         $statutsKala = [];
         if ($options['type'] != '5050') {
             $statutsKala[] = [ConstantStatutKala::BETOULA['hebreu'] => ConstantStatutKala::BETOULA['hebreu']];
         }
 
-        $statutsKala[] = [
-            ConstantStatutKala::NON_BETOULA['hebreu'] => ConstantStatutKala::NON_BETOULA['hebreu'],
-            ConstantStatutKala::DIVORCEE['hebreu'] => ConstantStatutKala::DIVORCEE['hebreu'],
-            ConstantStatutKala::VEUVE['hebreu'] => ConstantStatutKala::VEUVE['hebreu'],
-            ConstantStatutKala::CONVERTIE['hebreu'] => ConstantStatutKala::CONVERTIE['hebreu'],
-        ];
+        foreach ((new \ReflectionClass(ConstantStatutKala::class))->getConstants() as $value) {
+            if ($value['hebreu'] != 'בתולתא' && $value['hebreu'] != '') {
+                $statutsKala[$value['hebreu']] = $value['hebreu'];
+            }
+        }
 
         $builder
             ->add('jourSemaine', EntityType::class, [
@@ -78,7 +82,7 @@ class KetouvaFormType extends AbstractType
                 'attr' => [
                     'dir' => 'rtl'
                 ],
-                'label' => $options['type'] == 'taouta' || $options['type'] == 'irseka' ? 'Ville de la remise de la ketouva' : null,
+                'label' => $options['type'] == 'taouta' || $options['type'] == 'irkessa' ? 'Ville de la remise de la ketouva' : null,
                 'required' => false
             ])
             ->add('titreHatan', ChoiceType::class, [
@@ -174,7 +178,7 @@ class KetouvaFormType extends AbstractType
             ]);
         }
 
-        if ($options['type'] == 'taouta' || $options['type'] == 'irseka') {
+        if ($options['type'] == 'taouta' || $options['type'] == 'irkessa') {
             $builder
                 ->add('jourSemaineMariage', EntityType::class, [
                     'placeholder' => 'Choisir un jour',
@@ -209,7 +213,7 @@ class KetouvaFormType extends AbstractType
                     'required' => false
                 ]);
 
-            if ($options['type'] == 'irseka') {
+            if ($options['type'] == 'irkessa') {
                 $builder->add('dateMariageConnue', CheckboxType::class, [
                     'required' => false,
                     'label' => 'Je connais la date précise du mariage.',
@@ -241,7 +245,7 @@ class KetouvaFormType extends AbstractType
                         'choice_label' => 'num'
                     ]);
 
-                if ($ketouva->getTypeKetouva() == 'taouta' || $ketouva->getTypeKetouva() == 'irseka') {
+                if ($ketouva->getTypeKetouva() == 'taouta' || $ketouva->getTypeKetouva() == 'irkessa') {
                     $form->add('anneeMariage', EntityType::class, [
                         'placeholder' => 'Choisir une année',
                         'label' => 'Année',
@@ -260,7 +264,7 @@ class KetouvaFormType extends AbstractType
                         'choice_label' => 'num'
                     ]);
 
-                if ($ketouva->getTypeKetouva() == 'taouta' || $ketouva->getTypeKetouva() == 'irseka') {
+                if ($ketouva->getTypeKetouva() == 'taouta' || $ketouva->getTypeKetouva() == 'irkessa') {
                     $form->add('anneeMariage', EntityType::class, [
                         'placeholder' => 'Choisir une année',
                         'label' => 'Année',

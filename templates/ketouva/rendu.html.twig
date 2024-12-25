@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Apperçu de votre Ketouva
+{% endblock %}
+
+{% block body %}
+
+	{% if app.request.request.get('idKetouva') %}
+		<h5>
+			<a class="nav-link" href="{{path('ketouva_list')}}">
+				Retour à la liste des Ketouvot
+			</a>
+		</h5>
+	{% endif %}
+
+	<h2>Voici l'apperçu de votre Ketouva</h2>
+	<br>
+
+	{# <a download target="_blanc" href="{{asset('ketouvot/'~ketouva.nomFichier~'.docx')}}" class=" btn btn-primary telecharger-ketouva">Telecharger la ketouva</a> #}
+	<br><br>
+
+	<h5>
+		{# <a href="{{path('ketouva_'~type|lower~'_edit',{'id':ketouva.id})}}">Apporter une correction</a> #}
+	</h5>
+
+	<div class="affichage-ketouva">
+		{{textKetouvaHtml|raw}}
+	</div>
+	<br><br>
+
+{% endblock %}

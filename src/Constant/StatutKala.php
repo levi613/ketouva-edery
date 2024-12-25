@@ -49,4 +49,14 @@ class StatutKala
         'moitiePrix' => 'חמשים',
         'prix2' => 'מאה'
     ];
+
+    public const DEFAULT = [
+        'hebreu' => '',
+        'typePaiement' => '',
+        'prix' => '',
+        'statutKetouva' => '',
+        'beMoitiePrix' => '',
+        'moitiePrix' => '',
+        'prix2' => ''
+    ];
 }

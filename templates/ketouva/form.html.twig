@@ -14,8 +14,8 @@
 		{% set titrePage = "50-50" %}
 	{% elseif lienActif=="taouta" %}
 		{% set titrePage = "Déichtaka'h taouta" %}
-	{% elseif lienActif=="irseka" %}
-		{% set titrePage = "Déirséka" %}
+	{% elseif lienActif=="irkessa" %}
+		{% set titrePage = "Déirkessa" %}
 	{% endif %}
 
 	<h1 class="text-decoration-underline">Formulaire Ketouva
@@ -26,7 +26,7 @@
 
 		<div class="row">
 
-			{% if typeKetouva == 'taouta' or typeKetouva == 'irseka' %}
+			{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' %}
 				<h3>Date de la remise de la ketouva</h3>
 			{% else %}
 				<h3>Date</h3>
@@ -50,11 +50,11 @@
 
 			<hr>
 
-			{% if typeKetouva == 'taouta' or typeKetouva == 'irseka' %}
+			{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' %}
 				<h3>Date du mariage</h3>
 
 				{% set displayDate = 'block' %}
-				{% if typeKetouva == 'irseka' %}
+				{% if typeKetouva == 'irkessa' %}
 					{{ form_row(form.dateMariageConnue) }}
 					{% set displayDate = 'none' %}
 				{% endif %}
@@ -110,7 +110,7 @@
 					<div class="pt-2">{{ form_row(form.orpheline) }}</div>
 				</div>
 
-				{% if typeKetouva == 'taouta' or typeKetouva == 'irseka' %}
+				{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' %}
 					<div class="mb-2">
 						{{ form_widget(form.statutKala) }}
 					</div>
@@ -156,7 +156,7 @@
 				{{ form_row(form.ville) }}
 			</div>
 
-			{% if typeKetouva == 'taouta' or typeKetouva == 'irseka' %}
+			{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' %}
 				<div class="col-md-4 col-sm-12">
 					{{ form_row(form.villeMariage) }}
 				</div>
@@ -179,12 +179,14 @@
 			{{ form_row(form.reset) }}
 		</div>
 
+		<input type="hidden" name="idKetouva" value="{{ketouva.id}}"/>
+
 		{{ form_end(form) }}
 	</div>
 
 
 	<script>
-		{% if typeKetouva == '5050' or typeKetouva == 'taouta' or typeKetouva == 'irseka' %}
+		{% if typeKetouva == '5050' or typeKetouva == 'taouta' or typeKetouva == 'irkessa' %}
 			function autoRempli() {
 				if (document.getElementById('ketouva_form_statutKala_{{typeKetouva == "5050"?"3":"4"}}').checked == true) {
 					if (document.getElementById('ketouva_form_nomPereKala').value == "") {
@@ -204,7 +206,7 @@
 			}
 		{% endif %}
 
-		{% if typeKetouva == 'irseka' %}
+		{% if typeKetouva == 'irkessa' %}
 			var dateMariage1 = document.getElementById('dateMariage1');
 			var dateMariage2 = document.getElementById('dateMariage2');
 			var dateMariage3 = document.getElementById('dateMariage3');

@@ -8,5 +8,5 @@ class TypeKetouva
     public const SEFARAD = 'sefarad';
     public const CINQUANTE = '5050';
     public const TAOUTA = 'taouta';
-    public const IRSEKA = 'irseka';
+    public const IRKESSA = 'irkessa';
 }

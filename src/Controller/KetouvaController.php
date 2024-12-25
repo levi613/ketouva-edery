@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Constant\StatutKala;
+use App\Constant\TypeKetouva;
 use App\Entity\Ketouva;
 use App\Form\KetouvaFormType;
 use App\Repository\KetouvaRepository;
@@ -16,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class KetouvaController extends AbstractController
 {
@@ -23,17 +25,22 @@ class KetouvaController extends AbstractController
     public function createKEtouva(
         $type,
         Request $request,
-        // CalculeMois $calculeMois,
-        // CalculeProvenanceKala $calculeProvenanceKala,
-        // CreateKetouva $createKetouva,
+        CalculeMois $calculeMois,
+        CalculeProvenanceKala $calculeProvenanceKala,
+        CreateKetouva $createKetouva,
         EntityManagerInterface $em,
-        // TypeKetouvaRepository $typeKetouvaRepository
     ): Response {
+
+
+        if (!in_array($type, (new \ReflectionClass(TypeKetouva::class))->getConstants(), true)) {
+            throw new NotFoundHttpException('Invalid ketouva type.');
+        }
+
         $ketouva = new Ketouva;
 
         $ketouva->setTypeKetouva($type);
 
-        if ($type == 'habad' || $type == 'sefarad') {
+        if ($type == TypeKetouva::HABAD || $type == TypeKetouva::SEFARAD) {
             $ketouva->setStatutKala(StatutKala::BETOULA['hebreu']);
         }
 
@@ -45,10 +52,44 @@ class KetouvaController extends AbstractController
 
         if ($formKetouva->isSubmitted() && $formKetouva->isValid()) {
 
-            //     $mois = $calculeMois->getMoisKetouva($ketouva);
-            //     $provenanceKala = $calculeProvenanceKala->getProvenanceKala($ketouva);
+            $provenanceKala = $calculeProvenanceKala->getProvenanceKala($ketouva);
+            $moisKetouva = $calculeMois->getMois($ketouva->getMois(), $ketouva->getJourMois());
 
-            //     $modele = $createKetouva->genereKetouva($ketouva, $mois, $provenanceKala, 'habad');
+            $moisMariage = "";
+            $phrasePasDeDate = "";
+            $dateMariage = "";
+
+            if ($type == TypeKetouva::TAOUTA) {
+                $moisMariage = $calculeMois->getMois($ketouva->getMoisMariage(), $ketouva->getJourMoisMariage());
+            }
+
+            if ($ketouva->getTypeKetouva() == TypeKetouva::IRKESSA) {
+                // si on connait pas la date du mariage
+                if (!$ketouva->isDateMariageConnue()) {
+                    $ketouva->setJourSemaineMariage(null);
+                    $ketouva->setJourMoisMariage(null);
+                    $ketouva->setMoisMariage(null);
+                    $ketouva->setAnneeMariage(null);
+
+                    $dateMariage = "לי";
+                    $phrasePasDeDate = "השתא כי סהדי קמאי דחתימו תחות כתובתא קמייתא דאירכסא ליתנייהו וזמן כתובתא קמייתא לא ידענא";
+                } else {
+                    // si on connait la date du mariage
+                    $moisMariage = $calculeMois->getMois($ketouva->getMoisMariage(), $ketouva->getJourMoisMariage());
+                    $dateMariage = 'לי שהיה ב' . $ketouva->getJourSemaineMariage()->getHebreu() .
+                        ' בשבת ' . $ketouva->getJourMoisMariage()->getHebreu() .
+                        ' לחדש ' . $moisMariage . ' שנת ' . $ketouva->getAnneeMariage()->getHebreu() . ' ' .
+                        'לבריאת העולם';
+
+                    $phrasePasDeDate = "השתא";
+                }
+            }
+
+
+            $textKetouva = $createKetouva->genereTextKetouva($ketouva, $provenanceKala, $moisKetouva, $moisMariage, $dateMariage, $phrasePasDeDate);
+            $textKetouvaHtml = $createKetouva->genereTextKetouvaHtml($ketouva, $provenanceKala, $moisKetouva, $moisMariage, $dateMariage, $phrasePasDeDate);
+
+
 
             //     if (!$ketouva->getNomFichier()) {
             //         $ketouva->setNomFichier("habad-" . date('d') . '-' . date('m') . '-' . date('Y') . '-' . date('H') . '_' . date('i') . '_' . date('s'));
@@ -63,17 +104,17 @@ class KetouvaController extends AbstractController
             //     }
             //     $em->flush();
 
-            //     return $this->render('ketouva/rendu/habad-sefarad/index.html.twig', [
-            //         'ketouva' => $ketouva,
-            //         'mois' => $mois,
-            //         'provenanceKala' => $provenanceKala,
-            //         'habadSefarad' => 'מדאוריתא',
-            //         'lienActif' => 'habad',
-            //         'type' => 'habad'
-            //     ]);
+            return $this->render('ketouva/rendu.html.twig', [
+                'ketouva' => $ketouva,
+                'textKetouva' => $textKetouva,
+                'textKetouvaHtml' => $textKetouvaHtml,
+                'lienActif' => $type,
+                'type' => $type
+            ]);
         }
 
         return $this->render('ketouva/form.html.twig', [
+            'ketouva' => $ketouva,
             'form' => $formKetouva->createView(),
             'typeKetouva' => $type,
             'lienActif' => $type

@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'StamAshkenazCLM';
+    src: url('/font/StamAshkenazCLM.ttf') format('truetype');
+}
+
 body
 {
     background-color: rgb(230, 230, 230);
@@ -29,4 +34,11 @@ body
     display: flex;
     justify-content: space-between;
     width: 100%;
+}
+
+.affichage-ketouva
+{
+    font-family: 'StamAshkenazCLM', sans-serif; /* Utilise la police définie */
+    direction: rtl; /* Définit la direction de droite à gauche */
+    text-align: justify; /* Justifie parfaitement le texte */
 }

@@ -13,7 +13,7 @@
 		{% set guetActive = "" %}
 		{% set listKetouvaActive = "" %}
 		{% set taoutaActive = "" %}
-		{% set irsekaActive = "" %}
+		{% set irkessaActive = "" %}
 
 		{% if lienActif is defined %}
 
@@ -29,8 +29,8 @@
 			{% elseif lienActif == "taouta" %}
 				{% set taoutaActive = "active" %}
 
-			{% elseif lienActif == "irseka" %}
-				{% set irsekaActive = "active" %}
+			{% elseif lienActif == "irkessa" %}
+				{% set irkessaActive = "active" %}
 
 			{% elseif lienActif == "listKetouva" %}
 				{% set listKetouvaActive = "active" %}
@@ -55,7 +55,7 @@
 						<a class="nav-link {{taoutaActive}}"  href="{{path('create_ketouva', {'type':'taouta'})}}">Déichtaka'h taouta</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link {{irsekaActive}}"  href="{{path('create_ketouva', {'type':'irseka'})}}">Déirseka</a>
+						<a class="nav-link {{irkessaActive}}"  href="{{path('create_ketouva', {'type':'irkessa'})}}">Déirkessa</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link {{listKetouvaActive}}"  href="{{path('ketouva_list')}}">Liste Ketouvot</a>
