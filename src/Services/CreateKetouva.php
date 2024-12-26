@@ -24,8 +24,13 @@ class CreateKetouva
 
         $modele = str_replace('<strong><u>', '', $modele);
         $modele = str_replace('</u></strong>', '', $modele);
-        $modele = str_replace('<br>', '', $modele);
-        $modele = str_replace(ModeleKetouva::NEOUM, '', $modele);
+        // $modele = str_replace('<strong>', '', $modele);
+        // $modele = str_replace('</strong>', '', $modele);
+        // $modele = str_replace('<span>', '', $modele);
+        // $modele = str_replace('</span>', '', $modele);
+        // $modele = str_replace('<br>', '', $modele);
+        // $modele = str_replace('&nbsp;', ' ', $modele);
+        // $modele = str_replace(ModeleKetouva::NEOUM, '', $modele);
 
         return $modele;
     }
@@ -126,8 +131,8 @@ class CreateKetouva
         $modele = str_replace('mois', '<strong><u>' . $moisKetouva . '</u></strong>', $modele);
         $modele = str_replace('annee', '<strong><u>' . $ketouva->getAnnee()->getHebreu() . '</u></strong>', $modele);
         $modele = str_replace('ville', '<strong><u>' . $ketouva->getVille() . '</u></strong>', $modele);
-        $modele = str_replace('nomHatan', '<strong><u>' . $ketouva->getTitreHatan() . ' ' . $ketouva->getNomHatan() . '</u></strong>', $modele);
-        $modele = str_replace('nomPereHatan', '<strong><u>' . $ketouva->getTitrePereHatan() . ' ' . $ketouva->getNomPereHatan() . '</u></strong>', $modele);
+        $modele = str_replace('nomHatan', '<strong><u>' . $ketouva->getTitreHatan() . '&nbsp;' . $ketouva->getNomHatan() . '</u></strong>', $modele);
+        $modele = str_replace('nomPereHatan', '<strong><u>' . $ketouva->getTitrePereHatan() . '&nbsp;' . $ketouva->getNomPereHatan() . '</u></strong>', $modele);
         $modele = str_replace('nomKala', '<strong><u>' . $ketouva->getNomKala() . '</u></strong>', $modele);
         $modele = str_replace('nomPereKala', '<strong><u>' . $ketouva->getTitrePereKala() . ' ' . $ketouva->getNomPereKala() . '</u></strong>', $modele);
         $modele = str_replace('provenanceKala', '<strong><u>' . $provenanceKala . '</u></strong>', $modele);
@@ -137,6 +142,25 @@ class CreateKetouva
         if ($type == TypeKetouva::CINQUANTE || TypeKetouva::TAOUTA || $type == TypeKetouva::IRKESSA) {
             $modele = str_replace('statutKala', '<strong><u>' . $ketouva->getStatutKala() . '</u></strong>', $modele);
         }
+
+
+        // séparer le modele en mots
+        $mots = explode(" ", $modele);
+
+        // met en gras les 3 derniers mots du modele
+        if (count($mots) >= 3) {
+            $mots[count($mots) - 3] = '<span style="font-size:130%">' . $mots[count($mots) - 3];
+            $mots[count($mots) - 1] = $mots[count($mots) - 1] . '</span>';
+            $modele = implode(" ", $mots);
+        }
+
+        // mettre un span autour des 8 derniers mots
+        // if (count($mots) >= 8) {
+        //     $mots[count($mots) - 8] = '<span>' . $mots[count($mots) - 8];
+        //     $mots[count($mots) - 1] = $mots[count($mots) - 1] . '</span>';
+        //     $modele = implode(" ", $mots);
+        // }
+
 
         $modele .= '<br>' . ModeleKetouva::NEOUM . '<br>' . ModeleKetouva::NEOUM;
 

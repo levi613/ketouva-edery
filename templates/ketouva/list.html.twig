@@ -8,26 +8,23 @@
 	<br>
 
 	<div class="table-responsive">
-		<table class="table table-light table-hover table-striped align-middle" style="text-align:center">
-			<thead class="">
+		<table class="table table-secondary table-hover table-striped align-middle border border-secondary" style="text-align:center">
+			<thead>
 				<tr>
-					<th scope="col" style="text-align:left">Type</th>
+					<th class="ps-4" scope="col" style="text-align:left">Type</th>
 					<th scope="col">Nom du fichier</th>
 					<th scope="col">Hatan</th>
 					<th scope="col">Kala</th>
 					<th scope="col">Afficher</th>
 					<th scope="col">Modifier</th>
-					<th scope="col" style="text-align:right">Supprimer</th>
+					<th class="pe-4" scope="col" style="text-align:right">Supprimer</th>
 				</tr>
 			</thead>
 
-
-			{# {% set i = 0 %} #}
-			{% set modalSupp = {} %}
 			<tbody class="align-middle">
 				{% for ketouva in ketouvot %}
 					<tr>
-						<td scope="row" style="text-align:left">{{ketouva.typeKetouva}}</td>
+						<td class="ps-4" scope="row" style="text-align:left">{{ketouva.typeKetouva}}</td>
 
 						<td>{{ketouva.nomFichier}}</td>
 
@@ -55,7 +52,7 @@
 
 						</td>
 
-						<td style="text-align:right" title="Supprimer">
+						<td class="pe-4" style="text-align:right" title="Supprimer">
 							<span class="btn-link text-danger" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#supprimer{{ketouva.id}}">
 								Supprimer
 							</span>

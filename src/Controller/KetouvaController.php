@@ -9,6 +9,7 @@ use App\Form\KetouvaFormType;
 use App\Repository\KetouvaRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\TypeKetouvaRepository;
+use App\Service\PdfGeneratorService;
 use App\Services\CalculeMois;
 use App\Services\CalculeProvenanceKala;
 use App\Services\CreateKetouva;
@@ -141,5 +142,19 @@ class KetouvaController extends AbstractController
         $this->addFlash('danger', 'Ketouva supprimée avec succès.');
 
         return $this->redirectToRoute('ketouva_list');
+    }
+
+    #[Route('/ketouva/generate-pdf/{modele}/{id}', name: 'generate_pdf')]
+    public function generatePdf($modele, Ketouva $ketouva, PdfGeneratorService $pdfGenerator, CreateKetouva $createKetouva): Response
+    {
+        $text = $createKetouva->genereTextKetouva($ketouva);
+
+        $pdfContent = $pdfGenerator->generatePdf($text, $modele, $ketouva->getNomFichier(), $ketouva->getTypeKetouva());
+
+        $response = new Response($pdfContent);
+        $response->headers->set('Content-Type', 'application/pdf');
+        $response->headers->set('Content-Disposition', 'attachment; filename="' . $ketouva->getNomFichier() . '.pdf"');
+
+        return $response;
     }
 }

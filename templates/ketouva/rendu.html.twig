@@ -16,16 +16,97 @@
 	<h2>Voici l'apperçu de votre Ketouva</h2>
 	<br>
 
-	{# <a download target="_blanc" href="{{asset('ketouvot/'~ketouva.nomFichier~'.docx')}}" class=" btn btn-primary telecharger-ketouva">Telecharger la ketouva</a> #}
-	{# <br><br> #}
+	<div class="mb-3">
+		<a data-bs-toggle="dropdown" href="#" class=" btn btn-primary telecharger-ketouva mb-2">Telecharger la ketouva en Word</a>
+		<div class="dropdown-menu" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 42.4px, 0px);" data-popper-placement="bottom-start">
+			<a class="dropdown-item" href="#">Taille A4</a>
+			<a class="dropdown-item" href="#">Taille A3</a>
+		</div>
+		<br>
+		<a data-bs-toggle="dropdown" href="#" class=" btn btn-danger telecharger-ketouva mb-2">Telecharger la ketouva en PDF</a>
+		<div class="dropdown-menu" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 42.4px, 0px);" data-popper-placement="bottom-start">
+			<a target="_blank" class="dropdown-item" href="{{ path('generate_pdf', {'modele':'1', 'id':ketouva.id}) }}">Modèle 1</a>
+			<a target="_blank" class="dropdown-item" href="{{ path('generate_pdf', {'modele':'2', 'id':ketouva.id}) }}">Modèle 2</a>
+			<a class="dropdown-item" href="#">Modèle 3</a>
+		</div>
+		<br>
+	</div>
 
 	<h5>
 		<a href="{{path('edit_ketouva',{'id':ketouva.id})}}">Apporter une correction</a>
 	</h5>
 
-	<div class="affichage-ketouva">
-		{{textKetouvaHtml|raw}}
+	<div class="affichage-ketouva justified-text" id="affichage-ketouva">
+		<p>
+			{{textKetouvaHtml|raw}}
+		</p>
 	</div>
 	<br><br>
+
+
+
+	<script>
+  function adjustTextSpacing() {
+  const container = document.getElementById('affichage-ketouva');
+  const paragraph = container.querySelector('p');
+  const containerWidth = container.offsetWidth;
+
+  // Fonction pour mesurer les lignes de texte
+  function getLastLineWidth() {
+    const range = document.createRange();
+    range.selectNodeContents(paragraph);
+    const rects = range.getClientRects();
+    const lastLineRect = rects[rects.length - 1];
+    return lastLineRect ? lastLineRect.width : 0;
+  }
+
+  // Ajuster les espaces entre les mots
+  function increaseWordSpacing() {
+    let lastLineWidth = getLastLineWidth();
+    const wordSpacingStep = 0.5;
+    let currentSpacing = 0;
+    const maxIterations = 50; // Limite de sécurité
+    let iterations = 0;
+
+    // Réinitialiser l'espacement
+    paragraph.style.wordSpacing = '0px';
+
+    while (lastLineWidth < containerWidth * 0.95 && iterations < maxIterations) {
+      currentSpacing += wordSpacingStep;
+      paragraph.style.wordSpacing = `${currentSpacing}px`;
+      
+      lastLineWidth = getLastLineWidth();
+      iterations++;
+
+      // Si l'augmentation n'a plus d'effet, sortir de la boucle
+    //   if (lastLineWidth === getLastLineWidth()) {
+    //     break;
+    //   }
+    }
+
+    // Ajustement final si la ligne est trop large
+    if (lastLineWidth > containerWidth) {
+      paragraph.style.wordSpacing = `${currentSpacing - wordSpacingStep}px`;
+    }
+
+    // Log pour debug
+    console.log({
+      finalWidth: lastLineWidth,
+      containerWidth,
+      iterations,
+      finalSpacing: paragraph.style.wordSpacing
+    });
+  }
+
+  // Démarre l'ajustement
+  increaseWordSpacing();
+}
+
+// Appeler la fonction après le chargement de la page
+// window.addEventListener('load', adjustTextSpacing);
+
+// Réappliquer lors du redimensionnement de la fenêtre
+// window.addEventListener('resize', adjustTextSpacing);
+</script>
 
 {% endblock %}
