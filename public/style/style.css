@@ -48,5 +48,5 @@ body
   
   .justified-text p {
     text-align: justify;
-    text-align-last: justify;
+    /* text-align-last: justify; */
   }

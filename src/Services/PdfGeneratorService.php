@@ -40,9 +40,6 @@ class PdfGeneratorService
         $pageId = $pdf->importPage(1);
         $pdf->useTemplate($pageId, 0, 0, null, null, true);
 
-
-        // Ajustement de l'épaisseur du texte
-        // $pdf->setTextRenderingMode(1); // Mode "outline" pour un rendu plus léger
         // Ajustement de l'opacité du texte pour le rendre plus clair
         $pdf->setAlpha(0.8);
 
@@ -74,7 +71,7 @@ class PdfGeneratorService
         $pdf->MultiCell($width, 5, $text, 0, 'J', false, 1, $x, $y, true, 0, true, true, $height, 'T', true);
 
         // Retourne le PDF sous forme de chaîne
-        // return $pdf->Output($nomFichier, 'S'); // pour telecharger le PDF
-        return $pdf->Output($nomFichier, 'I'); // Affichage du PDF dans le navigateur
+        return $pdf->Output($nomFichier, 'S'); // pour telecharger le PDF
+        // return $pdf->Output($nomFichier, 'I'); // Affichage du PDF dans le navigateur
     }
 }

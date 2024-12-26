@@ -83,11 +83,17 @@
             "assets:install %PUBLIC_DIR%": "symfony-cmd",
             "importmap:install": "symfony-cmd"
         },
+        "database-setup": [
+            "php bin/console doctrine:d:c --no-interaction",
+            "php bin/console doctrine:migrations:migrate --no-interaction",
+            "php bin/console app:insere-dates-hebreu"
+        ],
         "post-install-cmd": [
             "@auto-scripts"
         ],
         "post-update-cmd": [
-            "@auto-scripts"
+            "@auto-scripts",
+            "@database-setup"
         ]
     },
     "conflict": {
