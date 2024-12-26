@@ -90,11 +90,11 @@
             "php bin/console app:insere-dates-hebreu"
         ],
         "post-install-cmd": [
-            "@auto-scripts"
-        ],
-        "post-update-cmd": [
             "@auto-scripts",
             "@database-setup"
+        ],
+        "post-update-cmd": [
+            "@auto-scripts"
         ]
     },
     "conflict": {
