@@ -19,10 +19,11 @@
 	<div class="mb-3">
 		{# <a data-bs-toggle="dropdown" href="#" class=" btn btn-primary telecharger-ketouva mb-2">Telecharger la ketouva en Word</a>
 		<div class="dropdown-menu" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 42.4px, 0px);" data-popper-placement="bottom-start">
-			<a class="dropdown-item" href="#">Taille A4</a>
-			<a class="dropdown-item" href="#">Taille A3</a>
+			<a class="dropdown-item" href="{{ path('generate_word', {'modele':'1', 'id':ketouva.id}) }}">Modèle 1</a>
+			<a class="dropdown-item" href="{{ path('generate_word', {'modele':'2', 'id':ketouva.id}) }}">Modèle 2</a>
+			{# <a class="dropdown-item" href="#">Modèle 3</a> #}
 		</div>
-		<br> #}
+		<br>
 		<a data-bs-toggle="dropdown" href="#" class=" btn btn-danger telecharger-ketouva mb-2">Telecharger la ketouva en PDF</a>
 		<div class="dropdown-menu" style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(0px, 42.4px, 0px);" data-popper-placement="bottom-start">
 			<a class="dropdown-item" href="{{ path('generate_pdf', {'modele':'1', 'id':ketouva.id}) }}">Modèle 1</a>
