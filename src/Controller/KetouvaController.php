@@ -41,7 +41,7 @@ class KetouvaController extends AbstractController
 
         $formKetouva->handleRequest($request);
 
-        if ($formKetouva->isSubmitted() && $formKetouva->isValid()) {
+        if ($formKetouva->isSubmitted()) {
 
             if (!$ketouva->getNomFichier()) {
                 $ketouva->setNomFichier($type . '-' . date('d') . '-' . date('m') . '-' . date('Y') . '-' . date('H') . '_' . date('i') . '_' . date('s'));
@@ -76,7 +76,7 @@ class KetouvaController extends AbstractController
 
         $formKetouva->handleRequest($request);
 
-        if ($formKetouva->isSubmitted() && $formKetouva->isValid()) {
+        if ($formKetouva->isSubmitted()) {
 
             if (!$ketouva->getNomFichier()) {
                 $ketouva->setNomFichier($type . '-' . date('d') . '-' . date('m') . '-' . date('Y') . '-' . date('H') . '_' . date('i') . '_' . date('s'));
