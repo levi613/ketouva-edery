@@ -54,6 +54,9 @@
         "twig/twig": "^2.12|^3.0"
     },
     "config": {
+        "platform": {
+        "ext-calendar": "*"
+    },
         "allow-plugins": {
             "php-http/discovery": true,
             "symfony/flex": true,
