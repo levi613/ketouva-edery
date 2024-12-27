@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "063c01e813b1efa8f78e30650e34423e",
+    "content-hash": "1e17710bac2ee47f0b793d29c3bcd591",
     "packages": [
         {
             "name": "composer/semver",
@@ -1377,6 +1377,75 @@
                 }
             ],
             "time": "2023-10-06T06:47:41+00:00"
+        },
+        {
+            "name": "fisharebest/ext-calendar",
+            "version": "2.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/fisharebest/ext-calendar.git",
+                "reference": "a1442ee2e6d0e28da16608be80a20642f52b791b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/fisharebest/ext-calendar/zipball/a1442ee2e6d0e28da16608be80a20642f52b791b",
+                "reference": "a1442ee2e6d0e28da16608be80a20642f52b791b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "provide": {
+                "ext-calendar": "1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*",
+                "satooshi/php-coveralls": "*",
+                "yoast/phpunit-polyfills": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/shims.php"
+                ],
+                "psr-4": {
+                    "Fisharebest\\ExtCalendar\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Greg Roach",
+                    "email": "greg@subaqua.co.uk",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Implementation of the Arabic (Hijri), French, Gregorian, Jewish, Julian and Persian (Jalali) calendars.  Also provides a replacement for the PHP ext/calendar extension.",
+            "homepage": "https://github.com/fisharebest/ext-calendar",
+            "keywords": [
+                "Jalali",
+                "arabic",
+                "calendar",
+                "ext-calendar",
+                "french",
+                "gregorian",
+                "hebrew",
+                "hijri",
+                "jewish",
+                "julian",
+                "julian day",
+                "julian day number",
+                "persian",
+                "shamsi"
+            ],
+            "support": {
+                "issues": "https://github.com/fisharebest/ext-calendar/issues",
+                "source": "https://github.com/fisharebest/ext-calendar/tree/2.6.0"
+            },
+            "time": "2022-05-31T16:01:21+00:00"
         },
         {
             "name": "monolog/monolog",
