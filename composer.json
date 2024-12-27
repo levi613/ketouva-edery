@@ -44,6 +44,7 @@
         "symfony/ux-turbo": "^2.22",
         "symfony/validator": "7.2.*",
         "symfony/web-link": "7.2.*",
+        "symfony/web-profiler-bundle": "7.2.*",
         "symfony/yaml": "7.2.*",
         "symfonycasts/reset-password-bundle": "^1.23",
         "tecnickcom/tcpdf": "^6.8",
@@ -112,7 +113,6 @@
         "symfony/css-selector": "7.2.*",
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^7.2",
-        "symfony/stopwatch": "7.2.*",
-        "symfony/web-profiler-bundle": "7.2.*"
+        "symfony/stopwatch": "7.2.*"
     }
 }
