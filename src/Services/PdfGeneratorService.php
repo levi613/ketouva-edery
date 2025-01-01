@@ -107,7 +107,7 @@ class PdfGeneratorService
         }
 
         // Retourne le PDF sous forme de chaîne
-        return $pdf->Output($nomFichier, 'I'); // Affichage du PDF dans le navigateur
+        // return $pdf->Output($nomFichier, 'I'); // Affichage du PDF dans le navigateur
         return $pdf->Output($nomFichier, 'S'); // pour telecharger le PDF
     }
 }
