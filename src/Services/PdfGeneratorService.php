@@ -74,7 +74,7 @@ class PdfGeneratorService
         // Modele 3
         if (str_contains($modele, '3')) {
             $x = 46.1; // 4.61cm
-            $y = 118.3; // 11.83cm
+            $y = 113; // 11.3cm
             $width = 204.9; // 20.49cm
             $height = 243.9; // 24.39cm
         }
