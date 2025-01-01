@@ -1,6 +1,6 @@
 @font-face {
-    font-family: 'StamAshkenazCLM';
-    src: url('/font/StamAshkenazCLM.ttf') format('truetype');
+    font-family: 'ShlomoStam';
+    src: url('/font/ShlomoStam.ttf') format('truetype');
 }
 
 body
@@ -35,7 +35,7 @@ body
 {
     color: rgba(0, 0, 0, 0.77);
     background-color: white;
-    font-family: 'StamAshkenazCLM', sans-serif; /* Utilise la police définie */
+    font-family: 'ShlomoStam', sans-serif;
     direction: rtl; /* Définit la direction de droite à gauche */
     /* text-align: justify; */
     /* text-align-last: justify; */

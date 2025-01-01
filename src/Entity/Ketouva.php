@@ -97,6 +97,12 @@ class Ketouva
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $deletedAt = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $statutKetouva = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $dechirer = null;
+
     public function __construct()
     {
         // titre personne par default  (reb)
@@ -422,6 +428,30 @@ class Ketouva
     public function setDeletedAt(?\DateTimeImmutable $deletedAt): static
     {
         $this->deletedAt = $deletedAt;
+
+        return $this;
+    }
+
+    public function getStatutKetouva(): ?string
+    {
+        return $this->statutKetouva;
+    }
+
+    public function setStatutKetouva(?string $statutKetouva): static
+    {
+        $this->statutKetouva = $statutKetouva;
+
+        return $this;
+    }
+
+    public function getDechirer(): ?string
+    {
+        return $this->dechirer;
+    }
+
+    public function setDechirer(?string $dechirer): static
+    {
+        $this->dechirer = $dechirer;
 
         return $this;
     }

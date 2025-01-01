@@ -6,16 +6,16 @@
 
 {% block body %}
 	{% set titrePage = "" %}
-	{% if typeKetouva=="habad" %}
-		{% set titrePage = "Habad/Achkénaz" %}
-	{% elseif typeKetouva=="sefarad" %}
-		{% set titrePage = "Sefarad" %}
+	{% if typeKetouva=="betoula" %}
+		{% set titrePage = "Bétoula" %}
 	{% elseif typeKetouva=="5050" %}
 		{% set titrePage = "50-50" %}
 	{% elseif lienActif=="taouta" %}
 		{% set titrePage = "Déichtaka'h taouta" %}
 	{% elseif lienActif=="irkessa" %}
 		{% set titrePage = "Déirkessa" %}
+	{% elseif lienActif=="nikrea" %}
+		{% set titrePage = "Dénikréa (Déchirée)" %}
 	{% endif %}
 
 	<h1 class="text-decoration-underline">Formulaire Ketouva
@@ -26,7 +26,7 @@
 
 		<div class="row">
 
-			{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' %}
+			{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' or typeKetouva == 'nikrea' %}
 				<h3>Date de la remise de la ketouva</h3>
 			{% else %}
 				<h3>Date</h3>
@@ -50,7 +50,7 @@
 
 			<hr>
 
-			{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' %}
+			{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' or typeKetouva == 'nikrea' %}
 				<h3>Date du mariage</h3>
 
 				{% set displayDate = 'block' %}
@@ -77,6 +77,24 @@
 
 				<hr>
 			{% endif %}
+
+			<h3>Ketouva</h3>
+			
+			{% if typeKetouva == 'nikrea' %}
+				<div class="col-md-4 col-sm-12">
+					<div class="mb-3">
+						{{ form_widget(form.dechirer) }}
+					</div>
+				</div>
+			{% endif %}
+
+			<div class="col-md-4 col-sm-12">
+				<div class="mb-3">
+					{{ form_widget(form.statutKetouva) }}
+				</div>
+			</div>
+
+			<hr>
 
 			<h3>Hatan</h3>
 			<div class="col-md-4 col-sm-12">
@@ -110,7 +128,7 @@
 					<div class="pt-2">{{ form_row(form.orpheline) }}</div>
 				</div>
 
-				{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' %}
+				{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' or typeKetouva == 'nikrea' %}
 					<div class="mb-2">
 						{{ form_widget(form.statutKala) }}
 					</div>
@@ -156,7 +174,7 @@
 				{{ form_row(form.ville) }}
 			</div>
 
-			{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' %}
+			{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' or typeKetouva == 'nikrea' %}
 				<div class="col-md-4 col-sm-12">
 					{{ form_row(form.villeMariage) }}
 				</div>
@@ -184,7 +202,7 @@
 
 
 	<script>
-		{% if typeKetouva == '5050' or typeKetouva == 'taouta' or typeKetouva == 'irkessa' %}
+		{% if typeKetouva == '5050' or typeKetouva == 'taouta' or typeKetouva == 'irkessa' or typeKetouva == 'nikrea' %}
 			function autoRempli() {
 				if (document.getElementById('ketouva_form_statutKala_{{typeKetouva == "5050"?"3":"4"}}').checked == true) {
 					if (document.getElementById('ketouva_form_nomPereKala').value == "") {

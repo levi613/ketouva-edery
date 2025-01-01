@@ -8,7 +8,6 @@ class StatutKala
         'hebreu' => 'בתולתא',
         'typePaiement' => 'מהר בתוליכי',
         'prix' => 'כסף זוזי מאתן',
-        'statutKetouva' => 'מדאורייתא',
         'beMoitiePrix' => 'במאה',
         'moitiePrix' => 'מאה',
         'prix2' => 'מאתים'
@@ -16,8 +15,7 @@ class StatutKala
     public const NON_BETOULA = [
         'hebreu' => 'איתתא',
         'typePaiement' => 'כסף כתובתיך',
-        'prix' => 'מאה',
-        'statutKetouva' => 'מדרבנן',
+        'prix' => 'מאה זוזי',
         'beMoitiePrix' => 'בחמשים',
         'moitiePrix' => 'חמשים',
         'prix2' => 'מאה'
@@ -25,8 +23,7 @@ class StatutKala
     public const DIVORCEE = [
         'hebreu' => 'מתרכתא',
         'typePaiement' => 'כסף מתרכותיכי',
-        'prix' => 'מאה',
-        'statutKetouva' => 'מדרבנן',
+        'prix' => 'מאה זוזי',
         'beMoitiePrix' => 'בחמשים',
         'moitiePrix' => 'חמשים',
         'prix2' => 'מאה'
@@ -34,8 +31,7 @@ class StatutKala
     public const VEUVE = [
         'hebreu' => 'ארמלתא',
         'typePaiement' => 'כסף ארמלותיכי',
-        'prix' => 'מאה',
-        'statutKetouva' => 'מדרבנן',
+        'prix' => 'מאה זוזי',
         'beMoitiePrix' => 'בחמשים',
         'moitiePrix' => 'חמשים',
         'prix2' => 'מאה'
@@ -43,8 +39,7 @@ class StatutKala
     public const CONVERTIE = [
         'hebreu' => 'גיורתא',
         'typePaiement' => 'כסף כתובתיך',
-        'prix' => 'מאה',
-        'statutKetouva' => 'מדרבנן',
+        'prix' => 'מאה זוזי',
         'beMoitiePrix' => 'בחמשים',
         'moitiePrix' => 'חמשים',
         'prix2' => 'מאה'
@@ -54,7 +49,6 @@ class StatutKala
         'hebreu' => '',
         'typePaiement' => '',
         'prix' => '',
-        'statutKetouva' => '',
         'beMoitiePrix' => '',
         'moitiePrix' => '',
         'prix2' => ''

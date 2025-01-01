@@ -2,7 +2,9 @@
 
 namespace App\Form;;
 
+use App\Constant\Dechirer;
 use App\Constant\StatutKala as ConstantStatutKala;
+use App\Constant\StatutKetouva;
 use App\Constant\TitrePersonne as ConstantTitrePersonne;
 use App\Constant\TypeKetouva;
 use App\Entity\Annee;
@@ -43,9 +45,17 @@ class KetouvaFormType extends AbstractType
             }
         }
 
+        $statutKetouva = [];
+        foreach ((new \ReflectionClass(StatutKetouva::class))->getConstants() as $value) {
+            if ($value == '') {
+                $statutKetouva['Rien'] = $value;
+            } else {
+                $statutKetouva[$value] = $value;
+            }
+        }
 
         $statutsKala = [];
-        if ($options['type'] != '5050') {
+        if ($options['type'] != TypeKetouva::CINQUANTE) {
             $statutsKala[] = [ConstantStatutKala::BETOULA['hebreu'] => ConstantStatutKala::BETOULA['hebreu']];
         }
 
@@ -82,7 +92,7 @@ class KetouvaFormType extends AbstractType
                 'attr' => [
                     'dir' => 'rtl'
                 ],
-                'label' => $options['type'] == 'taouta' || $options['type'] == 'irkessa' ? 'Ville de la remise de la ketouva' : null,
+                'label' => $options['type'] == TypeKetouva::TAOUTA || $options['type'] == TypeKetouva::IRKESSA || $options['type'] == TypeKetouva::NIKREA ? 'Ville de la remise de la ketouva' : null,
                 'required' => false
             ])
             ->add('titreHatan', ChoiceType::class, [
@@ -146,6 +156,17 @@ class KetouvaFormType extends AbstractType
                 ],
                 'required' => false
             ])
+            ->add('statutKetouva', ChoiceType::class, [
+                'choices' => $statutKetouva,
+                'expanded' => true,
+                'multiple' => false,
+                'label_attr' => [
+                    'class' => 'radio-inline'
+                ],
+                'attr' => [
+                    // 'dir' => 'rtl'
+                ]
+            ])
             ->add('nomFichier', TextType::class, [
                 'label' => 'Nom du fichier',
                 'required' => false
@@ -157,7 +178,7 @@ class KetouvaFormType extends AbstractType
                 'label' => 'Réinitialiser'
             ]);
 
-        if ($options['type'] != 'habad' && $options['type'] != 'sefarad') {
+        if ($options['type'] != TypeKetouva::BETOULA) {
             $builder->add('statutKala', ChoiceType::class, [
                 'choices' => $statutsKala,
                 'required' => true,
@@ -172,13 +193,13 @@ class KetouvaFormType extends AbstractType
             ]);
         }
 
-        if ($options['type'] != '5050') {
+        if ($options['type'] != TypeKetouva::CINQUANTE) {
             $builder->add('orpheline', CheckboxType::class, [
                 'required' => false
             ]);
         }
 
-        if ($options['type'] == 'taouta' || $options['type'] == 'irkessa') {
+        if ($options['type'] == TypeKetouva::TAOUTA || $options['type'] == TypeKetouva::IRKESSA || $options['type'] == TypeKetouva::NIKREA) {
             $builder
                 ->add('jourSemaineMariage', EntityType::class, [
                     'placeholder' => 'Choisir un jour',
@@ -213,12 +234,31 @@ class KetouvaFormType extends AbstractType
                     'required' => false
                 ]);
 
-            if ($options['type'] == 'irkessa') {
+            if ($options['type'] == TypeKetouva::IRKESSA) {
                 $builder->add('dateMariageConnue', CheckboxType::class, [
                     'required' => false,
                     'label' => 'Je connais la date précise du mariage.',
                     'attr' => ['onclick' => 'afficheDateMariage()']
 
+                ]);
+            }
+
+            if ($options['type'] == TypeKetouva::NIKREA) {
+                $dechirer = [];
+                foreach ((new \ReflectionClass(Dechirer::class))->getConstants() as $value) {
+                    $dechirer[$value] = $value;
+                }
+
+                $builder->add('dechirer', ChoiceType::class, [
+                    'choices' => $dechirer,
+                    'expanded' => true,
+                    'multiple' => false,
+                    'label_attr' => [
+                        'class' => ''
+                    ],
+                    'attr' => [
+                        // 'dir' => 'rtl'
+                    ]
                 ]);
             }
         }
@@ -235,7 +275,7 @@ class KetouvaFormType extends AbstractType
             /** @var Ketouva */
             $ketouva = $event->getData();
 
-            if ($ketouva->getId() == null) {
+            if (!$ketouva->getId()) {
                 $form
                     ->add('annee', EntityType::class, [
                         'placeholder' => 'Choisir une année',
@@ -245,7 +285,7 @@ class KetouvaFormType extends AbstractType
                         'choice_label' => 'num'
                     ]);
 
-                if ($ketouva->getTypeKetouva() == 'taouta' || $ketouva->getTypeKetouva() == 'irkessa') {
+                if ($ketouva->getTypeKetouva() == TypeKetouva::TAOUTA || $ketouva->getTypeKetouva() == TypeKetouva::IRKESSA || $ketouva->getTypeKetouva() == TypeKetouva::NIKREA) {
                     $form->add('anneeMariage', EntityType::class, [
                         'placeholder' => 'Choisir une année',
                         'label' => 'Année',
@@ -264,7 +304,7 @@ class KetouvaFormType extends AbstractType
                         'choice_label' => 'num'
                     ]);
 
-                if ($ketouva->getTypeKetouva() == 'taouta' || $ketouva->getTypeKetouva() == 'irkessa') {
+                if ($ketouva->getTypeKetouva() == TypeKetouva::TAOUTA || $ketouva->getTypeKetouva() == TypeKetouva::IRKESSA || $ketouva->getTypeKetouva() == TypeKetouva::NIKREA) {
                     $form->add('anneeMariage', EntityType::class, [
                         'placeholder' => 'Choisir une année',
                         'label' => 'Année',
