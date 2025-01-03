@@ -15,6 +15,10 @@ class TextOptimizer
 
     public function optimizeText($text)
     {
+        // $text = str_replace('&nbsp;', ' ', $text);
+        $text = preg_replace('/\s+/', ' ', $text); // Nettoyer les espaces multiples
+        $text = preg_replace('/\s*\(\s*/', '( ', $text); // Normaliser les espaces avant les parenthèses
+
         // Découper le texte en mots
         $words = preg_split('/\s+/', $text);
         $lines = [];
