@@ -84,10 +84,10 @@ class PdfGeneratorService
         }
 
         // Après la configuration de la police et avant le MultiCell
-        $optimizer = new TextOptimizer($pdf, $width, 0.8);
+        $optimizer = new TextOptimizer($pdf, $width);
         $optimizedText = $optimizer->optimizeText($text);
 
-        $optimizedText .= '' . ModeleKetouva::NEOUM . '<br>' . ModeleKetouva::NEOUM;
+        $optimizedText .= ' ' . ModeleKetouva::NEOUM . '<br>' . ModeleKetouva::NEOUM;
 
         $pdf->SetXY($x, $y);
         $pdf->MultiCell($width, 5, $optimizedText, 0, 'J', false, 1, $x, $y, true, 0, true, true, $height, 'T', true);
