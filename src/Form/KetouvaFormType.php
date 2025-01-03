@@ -17,6 +17,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -166,6 +167,14 @@ class KetouvaFormType extends AbstractType
                 'attr' => [
                     // 'dir' => 'rtl'
                 ]
+            ])
+            ->add('ajustFontSizeInPdf', NumberType::class, [
+                'label' => 'Ajuster la taille de la police dans le PDF',
+                'required' => false,
+                'help' => 'par exemple : -0.1 pour réduire la taille de 0.1 ou 0.1 pour augmenter la taille de 0.1',
+                'attr' => [
+                    'step' => 0.1,
+                ],
             ])
             ->add('nomFichier', TextType::class, [
                 'label' => 'Nom du fichier',

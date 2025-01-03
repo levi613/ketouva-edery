@@ -150,13 +150,13 @@ class KetouvaController extends AbstractController
 	public function generatePdf($modele, Ketouva $ketouva, PdfGeneratorService $pdfGenerator, CreateKetouva $createKetouva): Response
 	{
 		$text = $createKetouva->genereTextKetouva($ketouva);
-		$text .= '<br>' . ModeleKetouva::NEOUM . '<br>' . ModeleKetouva::NEOUM;
+		$text .= ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 
 		if ($ketouva->getTypeKetouva() == TypeKetouva::NIKREA) {
 			$modele .= 'hilouf';
 		}
 
-		$pdfContent = $pdfGenerator->generatePdf($text, $modele, $ketouva->getNomFichier(), $ketouva->getTypeKetouva());
+		$pdfContent = $pdfGenerator->generatePdf($text, $modele, $ketouva->getNomFichier(), $ketouva->getTypeKetouva(), $ketouva->getAjustFontSizeInPdf());
 
 		$response = new Response($pdfContent);
 		$response->headers->set('Content-Type', 'application/pdf');

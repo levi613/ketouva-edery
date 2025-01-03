@@ -184,6 +184,18 @@
 
 
 			<h3>Enregistrement</h3>
+			<div class="col-md-4 col-sm-12 mb-3">
+				{{ form_label(form.ajustFontSizeInPdf) }}
+				<div class="input-group">
+					<button type="button" class="btn btn-secondary btn-decrement">-</button>
+					{{ form_widget(form.ajustFontSizeInPdf) }}
+					<button type="button" class="btn btn-secondary btn-increment">+</button>
+				</div>
+				{{ form_help(form.ajustFontSizeInPdf) }}
+				{{ form_errors(form.ajustFontSizeInPdf) }}
+
+			</div>
+
 			<div class="col-md-4 col-sm-12">
 				{{ form_row(form.nomFichier) }}
 			</div>
@@ -254,6 +266,26 @@
 				}
 			}
 		{% endif %}
+
+
+
+
+		document.querySelectorAll('.btn-increment').forEach(button => {
+			button.addEventListener('click', function () {
+				const input = this.previousElementSibling;
+				const step = parseFloat(input.step) || 1;
+				input.value = ((parseFloat(input.value) || 0) + step).toFixed(1);
+			});
+		});
+
+		document.querySelectorAll('.btn-decrement').forEach(button => {
+			button.addEventListener('click', function () {
+				const input = this.nextElementSibling;
+				const step = parseFloat(input.step) || 1;
+				input.value = ((parseFloat(input.value) || 0) - step).toFixed(1);
+			});
+		});
+
 	</script>
 
 

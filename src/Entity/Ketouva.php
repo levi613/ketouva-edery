@@ -103,6 +103,9 @@ class Ketouva
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $dechirer = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $ajustFontSizeInPdf = null;
+
     public function __construct()
     {
         // titre personne par default  (reb)
@@ -452,6 +455,18 @@ class Ketouva
     public function setDechirer(?string $dechirer): static
     {
         $this->dechirer = $dechirer;
+
+        return $this;
+    }
+
+    public function getAjustFontSizeInPdf(): ?float
+    {
+        return $this->ajustFontSizeInPdf;
+    }
+
+    public function setAjustFontSizeInPdf(?float $ajustFontSizeInPdf): static
+    {
+        $this->ajustFontSizeInPdf = $ajustFontSizeInPdf;
 
         return $this;
     }
