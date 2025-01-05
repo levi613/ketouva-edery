@@ -165,7 +165,7 @@ class TextOptimizer
                     $previousLine = $lines[$currentLineIndex - 1];
 
                     // Si la ligne précédente est trop courte ou n'a plus de mots, arrêter
-                    if (count($previousLine) <= 2) break;
+                    if (count($previousLine) <= 5) break;
 
                     // Obtenir le dernier mot de la ligne précédente
                     $lastWord = array_pop($previousLine);
