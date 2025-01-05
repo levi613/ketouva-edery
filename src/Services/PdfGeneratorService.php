@@ -43,11 +43,11 @@ class PdfGeneratorService
         // Ajustement de l'opacité du texte pour le rendre plus clair
         $pdf->setAlpha(0.8);
 
-        $pdf->setCellHeightRatio(1.4); // Ajustement de la hauteur des cellules
         $fontSize = 17.3;
+        $lineHeight = 8.5;
         if ($typeKetouva == TypeKetouva::IRKESSA || $typeKetouva == TypeKetouva::TAOUTA || $typeKetouva == TypeKetouva::NIKREA) {
-            $fontSize = 15.2;
-            $pdf->setCellHeightRatio(1.3); // Ajustement de la hauteur des cellules
+            $fontSize = 13.9;
+            $lineHeight = 7;
         }
         if (str_contains($modele, '3')) {
             $fontSize--;
@@ -84,13 +84,11 @@ class PdfGeneratorService
         }
 
         // Après la configuration de la police et avant le MultiCell
-        $optimizer = new TextOptimizer($pdf, $width);
-        $optimizedText = $optimizer->optimizeText($text);
+        $optimizer = new TextOptimizer($pdf, $width, $x, $y, $lineHeight, 0.6, 0.95);
+        $optimizer->renderText($text);
 
-        $optimizedText .= ' ' . ModeleKetouva::NEOUM . '<br>' . ModeleKetouva::NEOUM;
-
-        $pdf->SetXY($x, $y);
-        $pdf->MultiCell($width, 5, $optimizedText, 0, 'J', false, 1, $x, $y, true, 0, true, true, $height, 'T', true);
+        // $pdf->SetXY($x, $y);
+        // $pdf->MultiCell($width, 5, $optimizedText, 0, 'J', false, 1, $x, $y, true, 0, true, true, $height, 'T', true);
 
         // ecrire le texte en bas de la page
         if ($typeKetouva == TypeKetouva::TAOUTA || $typeKetouva == TypeKetouva::IRKESSA || $typeKetouva == TypeKetouva::NIKREA) {

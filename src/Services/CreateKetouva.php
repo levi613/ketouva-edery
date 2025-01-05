@@ -135,10 +135,10 @@ class CreateKetouva
         $modele = str_replace('mois', '<strong><u>' . $moisKetouva . '</u></strong>', $modele);
         $modele = str_replace('annee', '<strong><u>' . $ketouva->getAnnee()->getHebreu() . '</u></strong>', $modele);
         $modele = str_replace('ville', '<strong><u>' . $ketouva->getVille() . '</u></strong>', $modele);
-        $nomHatan = $ketouva->getTitreHatan() . '&nbsp;' . $ketouva->getNomHatan();
-        $nomHatan = str_replace(' ',  '&nbsp;', $nomHatan);
+        $nomHatan = $ketouva->getTitreHatan() . ' ' . $ketouva->getNomHatan();
+        $nomHatan = str_replace(' ',  ' ', $nomHatan);
         $modele = str_replace('nomHatan', '<strong><u>' . $nomHatan . '</u></strong>', $modele);
-        $modele = str_replace('nomPereHatan', '<strong><u>' . $ketouva->getTitrePereHatan() . '&nbsp;' . $ketouva->getNomPereHatan() . '</u></strong>', $modele);
+        $modele = str_replace('nomPereHatan', '<strong><u>' . $ketouva->getTitrePereHatan() . ' ' . $ketouva->getNomPereHatan() . '</u></strong>', $modele);
         $modele = str_replace('nomKala', '<strong><u>' . $ketouva->getNomKala() . '</u></strong>', $modele);
         $modele = str_replace('nomPereKala', '<strong><u>' . $ketouva->getTitrePereKala() . ' ' . $ketouva->getNomPereKala() . '</u></strong>', $modele);
         $modele = str_replace('provenanceKala', '<strong><u>' . $provenanceKala . '</u></strong>', $modele);

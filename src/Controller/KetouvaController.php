@@ -111,12 +111,10 @@ class KetouvaController extends AbstractController
 	{
 		$type = $ketouva->getTypeKetouva();
 
-		$textKetouva = $createKetouva->genereTextKetouva($ketouva);
 		$textKetouvaHtml = $createKetouva->genereTextKetouvaHtml($ketouva);
 
 		return $this->render('ketouva/rendu.html.twig', [
 			'ketouva' => $ketouva,
-			'textKetouva' => $textKetouva,
 			'textKetouvaHtml' => $textKetouvaHtml,
 			'lienActif' => $type,
 			'type' => $type
@@ -150,7 +148,6 @@ class KetouvaController extends AbstractController
 	public function generatePdf($modele, Ketouva $ketouva, PdfGeneratorService $pdfGenerator, CreateKetouva $createKetouva): Response
 	{
 		$text = $createKetouva->genereTextKetouva($ketouva);
-		$text .= ' &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 
 		if ($ketouva->getTypeKetouva() == TypeKetouva::NIKREA) {
 			$modele .= 'hilouf';
@@ -175,7 +172,6 @@ class KetouvaController extends AbstractController
 		$text = $createKetouva->genereTextKetouva($ketouva);
 
 		$text = str_replace('<br>', ' ', $text);
-		$text = str_replace('&nbsp;', ' ', $text);
 		$text = str_replace('<span>', '', $text);
 		$text = str_replace('</span>', '', $text);
 
