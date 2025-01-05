@@ -176,6 +176,13 @@ class KetouvaFormType extends AbstractType
                     'step' => 0.1,
                 ],
             ])
+            ->add('ecartLigne', NumberType::class, [
+                'label' => 'Taille de l\'écart entre les lignes dans le PDF',
+                'required' => false,
+                'attr' => [
+                    'step' => 0.1,
+                ],
+            ])
             ->add('nomFichier', TextType::class, [
                 'label' => 'Nom du fichier',
                 'required' => false

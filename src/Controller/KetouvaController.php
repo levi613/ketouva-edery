@@ -40,6 +40,12 @@ class KetouvaController extends AbstractController
 			$ketouva->setStatutKala(StatutKala::BETOULA['hebreu']);
 		}
 
+		if ($type == TypeKetouva::BETOULA || $type == TypeKetouva::CINQUANTE) {
+			$ketouva->setEcartLigne(8.5);
+		} else {
+			$ketouva->setEcartLigne(7);
+		}
+
 		$formKetouva = $this->createForm(KetouvaFormType::class, $ketouva, [
 			'type' => $type
 		]);
@@ -153,7 +159,7 @@ class KetouvaController extends AbstractController
 			$modele .= 'hilouf';
 		}
 
-		$pdfContent = $pdfGenerator->generatePdf($text, $modele, $ketouva->getNomFichier(), $ketouva->getTypeKetouva(), $ketouva->getAjustFontSizeInPdf());
+		$pdfContent = $pdfGenerator->generatePdf($text, $modele, $ketouva->getNomFichier(), $ketouva->getTypeKetouva(), $ketouva->getAjustFontSizeInPdf(), $ketouva->getEcartLigne());
 
 		$response = new Response($pdfContent);
 		$response->headers->set('Content-Type', 'application/pdf');

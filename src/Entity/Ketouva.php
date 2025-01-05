@@ -106,6 +106,9 @@ class Ketouva
     #[ORM\Column(nullable: true)]
     private ?float $ajustFontSizeInPdf = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?float $ecartLigne = null;
+
     public function __construct()
     {
         // titre personne par default  (reb)
@@ -467,6 +470,18 @@ class Ketouva
     public function setAjustFontSizeInPdf(?float $ajustFontSizeInPdf): static
     {
         $this->ajustFontSizeInPdf = $ajustFontSizeInPdf;
+
+        return $this;
+    }
+
+    public function getEcartLigne(): ?float
+    {
+        return $this->ecartLigne;
+    }
+
+    public function setEcartLigne(?float $ecartLigne): static
+    {
+        $this->ecartLigne = $ecartLigne;
 
         return $this;
     }

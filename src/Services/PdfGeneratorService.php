@@ -10,7 +10,7 @@ use TCPDF_FONTS;
 class PdfGeneratorService
 {
 
-    public function generatePdf(string $text, $modele, $nomFichier, $typeKetouva, $ajustFontSize): string
+    public function generatePdf(string $text, $modele, $nomFichier, $typeKetouva, $ajustFontSize, $lineHeight): string
     {
         // Création d'un nouveau PDF au format A3
         $pdf = new Fpdi('P', 'mm', 'A3', true, 'UTF-8', false);
@@ -44,10 +44,15 @@ class PdfGeneratorService
         $pdf->setAlpha(0.8);
 
         $fontSize = 17.3;
-        $lineHeight = 8.5;
+        if (!is_numeric($lineHeight) || $lineHeight === null || $lineHeight === "") {
+            $lineHeight = 8.5;
+        }
         if ($typeKetouva == TypeKetouva::IRKESSA || $typeKetouva == TypeKetouva::TAOUTA || $typeKetouva == TypeKetouva::NIKREA) {
             $fontSize = 13.9;
-            $lineHeight = 7;
+
+            if (!is_numeric($lineHeight) || $lineHeight === null || $lineHeight === "") {
+                $lineHeight = 7;
+            }
         }
         if (str_contains($modele, '3')) {
             $fontSize--;

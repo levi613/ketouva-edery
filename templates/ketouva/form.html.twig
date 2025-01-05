@@ -195,6 +195,17 @@
 				{{ form_errors(form.ajustFontSizeInPdf) }}
 
 			</div>
+			
+			<div class="col-md-4 col-sm-12 mb-3">
+				{{ form_label(form.ecartLigne) }}
+				<div class="input-group">
+					<button type="button" class="btn btn-secondary btn-decrement">-</button>
+					{{ form_widget(form.ecartLigne) }}
+					<button type="button" class="btn btn-secondary btn-increment">+</button>
+				</div>
+				{{ form_errors(form.ecartLigne) }}
+
+			</div>
 
 			<div class="col-md-4 col-sm-12">
 				{{ form_row(form.nomFichier) }}
