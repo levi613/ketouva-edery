@@ -200,7 +200,7 @@ class KetouvaFormType extends AbstractType
                 'label' => 'Code postal',
                 'required' => false
             ])
-            ->add('dateFrancais', DateType::class, [
+            ->add('dateFrancais', TextType::class, [
                 'label' => 'Date en français',
                 'required' => false
             ])
