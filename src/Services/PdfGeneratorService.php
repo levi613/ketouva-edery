@@ -4,13 +4,14 @@ namespace App\Services;
 
 use App\Constant\ModeleKetouva;
 use App\Constant\TypeKetouva;
+use App\Entity\Ketouva;
 use setasign\Fpdi\Tcpdf\Fpdi;
 use TCPDF_FONTS;
 
 class PdfGeneratorService
 {
 
-    public function generatePdf(string $text, $modele, $nomFichier, $typeKetouva, $ajustFontSize, $lineHeight): string
+    public function generatePdf(string $text, $modele, Ketouva $ketouva): string
     {
         // Création d'un nouveau PDF au format A3
         $pdf = new Fpdi('P', 'mm', 'A3', true, 'UTF-8', false);
@@ -44,10 +45,11 @@ class PdfGeneratorService
         $pdf->setAlpha(0.8);
 
         $fontSize = 17.3;
+        $lineHeight = $ketouva->getEcartLigne();
         if (!is_numeric($lineHeight) || $lineHeight === null || $lineHeight === "") {
             $lineHeight = 8.5;
         }
-        if ($typeKetouva == TypeKetouva::IRKESSA || $typeKetouva == TypeKetouva::TAOUTA || $typeKetouva == TypeKetouva::NIKREA) {
+        if ($ketouva->getTypeKetouva() == TypeKetouva::IRKESSA || $ketouva->getTypeKetouva() == TypeKetouva::TAOUTA || $ketouva->getTypeKetouva() == TypeKetouva::NIKREA) {
             $fontSize = 13.9;
 
             if (!is_numeric($lineHeight) || $lineHeight === null || $lineHeight === "") {
@@ -59,7 +61,7 @@ class PdfGeneratorService
         }
 
         try {
-            $fontSize += $ajustFontSize;
+            $fontSize += $ketouva->getAjustFontSizeInPdf();
         } catch (\Throwable $th) {
         }
 
@@ -96,7 +98,7 @@ class PdfGeneratorService
         // $pdf->MultiCell($width, 5, $optimizedText, 0, 'J', false, 1, $x, $y, true, 0, true, true, $height, 'T', true);
 
         // ecrire le texte en bas de la page
-        if ($typeKetouva == TypeKetouva::TAOUTA || $typeKetouva == TypeKetouva::IRKESSA || $typeKetouva == TypeKetouva::NIKREA) {
+        if ($ketouva->getTypeKetouva() == TypeKetouva::TAOUTA || $ketouva->getTypeKetouva() == TypeKetouva::IRKESSA || $ketouva->getTypeKetouva() == TypeKetouva::NIKREA) {
             // Modele 1
             $x = 53; //
             $y = 363;
@@ -118,8 +120,15 @@ class PdfGeneratorService
             $pdf->MultiCell($width, 5, ModeleKetouva::FIN_REECRITURE, 0, 'J', false, 1, $x, $y, true, 0, true, true, $height, 'T', true);
         }
 
+        $pdf->AddPage();
+        $pdf->setRTL(false);
+        $pdf->SetXY(10, 10);
+        $texteVerso = CreateKetouva::getTexteVersoPDF($ketouva);
+        $pdf->MultiCell(500, 5, $texteVerso, 0, 'J', false, 1, 40, 40, true, 0, true, true, $height, 'T', true);
+
+
         // Retourne le PDF
-        // return $pdf->Output($nomFichier, 'I'); // Affichage du PDF dans le navigateur
-        return $pdf->Output($nomFichier, 'S'); // pour telecharger le PDF
+        return $pdf->Output($ketouva->getNomFichier(), 'I'); // Affichage du PDF dans le navigateur
+        return $pdf->Output($ketouva->getNomFichier(), 'S'); // pour telecharger le PDF
     }
 }

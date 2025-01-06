@@ -204,11 +204,30 @@
 					<button type="button" class="btn btn-secondary btn-increment">+</button>
 				</div>
 				{{ form_errors(form.ecartLigne) }}
-
 			</div>
 
 			<div class="col-md-4 col-sm-12">
 				{{ form_row(form.nomFichier) }}
+			</div>
+
+			<hr>
+
+			<h3>Verso de la Ketouva</h3>
+
+			<div class="col-md-3 col-sm-12" id="dateMariage1">
+				{{ form_row(form.salleFrancais) }}
+			</div>
+
+			<div class="col-md-3 col-sm-12" id="dateMariage2">
+				{{ form_row(form.villeFrancais) }}
+			</div>
+
+			<div class="col-md-3 col-sm-12" id="dateMariage3">
+				{{ form_row(form.codePostalFrancais) }}
+			</div>
+
+			<div class="col-md-3 col-sm-12" id="dateMariage4">
+				{{ form_row(form.dateFrancais) }}
 			</div>
 
 			<hr>

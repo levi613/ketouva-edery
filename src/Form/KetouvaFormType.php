@@ -17,6 +17,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -185,6 +186,22 @@ class KetouvaFormType extends AbstractType
             ])
             ->add('nomFichier', TextType::class, [
                 'label' => 'Nom du fichier',
+                'required' => false
+            ])
+            ->add('salleFrancais', TextType::class, [
+                'label' => 'Salle du mariage (français)',
+                'required' => false
+            ])
+            ->add('villeFrancais', TextType::class, [
+                'label' => 'Ville en français',
+                'required' => false
+            ])
+            ->add('codePostalFrancais', TextType::class, [
+                'label' => 'Code postal',
+                'required' => false
+            ])
+            ->add('dateFrancais', DateType::class, [
+                'label' => 'Date en français',
                 'required' => false
             ])
             ->add('save', SubmitType::class, [

@@ -170,4 +170,22 @@ class CreateKetouva
 
         return $modele;
     }
+
+    public static function getTexteVersoPDF(Ketouva $ketouva)
+    {
+        $texteVerso = "Ce Mariage a été célebré par le R. Mordehai EDERHY <br>Dans la salle : ";
+        if ($ketouva->getTypeKetouva() == TypeKetouva::TAOUTA || $ketouva->getTypeKetouva() == TypeKetouva::IRKESSA || $ketouva->getTypeKetouva() == TypeKetouva::NIKREA) {
+            $texteVerso = "Cette ketouba a été rédigée par le R. Mordehai EDERHY <br>Dans la salle : ";
+        }
+
+        $texteVerso .= $ketouva->getSalleFrancais() . "<br>Ville : " . $ketouva->getVilleFrancais() . "<br>Code Postal : " . $ketouva->getCodePostalFrancais() . "<br>En Date du : " . $ketouva->getDateFrancais() . "<br>Email : mordehai.edri@gmail.com <br>Téléphone : (+33)0769688115";
+        return $texteVerso;
+    }
+
+    public static function getTexteVersoWord(Ketouva $ketouva)
+    {
+        $texteVerso = self::getTexteVersoPDF($ketouva);
+        $texteVerso = str_replace('<br>', "\n", $texteVerso);
+        return $texteVerso;
+    }
 }

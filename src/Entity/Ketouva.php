@@ -109,6 +109,18 @@ class Ketouva
     #[ORM\Column(nullable: true)]
     private ?float $ecartLigne = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $salleFrancais = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $villeFrancais = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $codePostalFrancais = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $dateFrancais = null;
+
     public function __construct()
     {
         // titre personne par default  (reb)
@@ -482,6 +494,54 @@ class Ketouva
     public function setEcartLigne(?float $ecartLigne): static
     {
         $this->ecartLigne = $ecartLigne;
+
+        return $this;
+    }
+
+    public function getSalleFrancais(): ?string
+    {
+        return $this->salleFrancais;
+    }
+
+    public function setSalleFrancais(?string $salleFrancais): static
+    {
+        $this->salleFrancais = $salleFrancais;
+
+        return $this;
+    }
+
+    public function getVilleFrancais(): ?string
+    {
+        return $this->villeFrancais;
+    }
+
+    public function setVilleFrancais(?string $villeFrancais): static
+    {
+        $this->villeFrancais = $villeFrancais;
+
+        return $this;
+    }
+
+    public function getCodePostalFrancais(): ?string
+    {
+        return $this->codePostalFrancais;
+    }
+
+    public function setCodePostalFrancais(?string $codePostalFrancais): static
+    {
+        $this->codePostalFrancais = $codePostalFrancais;
+
+        return $this;
+    }
+
+    public function getDateFrancais(): ?string
+    {
+        return $this->dateFrancais;
+    }
+
+    public function setDateFrancais(?string $dateFrancais): static
+    {
+        $this->dateFrancais = $dateFrancais;
 
         return $this;
     }
