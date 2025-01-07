@@ -61,7 +61,7 @@ class KetouvaController extends AbstractController
 			$em->persist($ketouva);
 			$em->flush();
 
-			$this->addFlash('success', 'Ketouva créée avec succès');
+			// $this->addFlash('success', 'Ketouva créée avec succès');
 
 			return $this->redirectToRoute('affiche_ketouva', [
 				'id' => $ketouva->getId()
@@ -97,7 +97,7 @@ class KetouvaController extends AbstractController
 
 			$em->flush();
 
-			$this->addFlash('success', 'Ketouva modifiée avec succès');
+			// $this->addFlash('success', 'Ketouva modifiée avec succès');
 
 			return $this->redirectToRoute('affiche_ketouva', [
 				'id' => $ketouva->getId()
