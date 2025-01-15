@@ -90,7 +90,7 @@
 
 			<div class="col-md-4 col-sm-12">
 				<div class="mb-3">
-					{{ form_widget(form.statutKetouva) }}
+					{{ form_row(form.statutKetouva) }}
 				</div>
 			</div>
 
@@ -112,10 +112,16 @@
 				<div class="mb-3">
 					{{ form_label(form.nomPereHatan) }}
 					{{ form_widget(form.titrePereHatan) }}
-					<div class="input-group">
-						<span class="input-group-text fw-bold">'שי</span>
+					{# <div class="input-group"> #}
+						{# <span class="input-group-text fw-bold">'שי</span> #}
 						{{ form_widget(form.nomPereHatan) }}
-					</div>
+					{# </div> #}
+				</div>
+			</div>
+			
+			<div class="col-md-4 col-sm-12">
+				<div class="mb-3">
+					{{ form_row(form.nomFamilleHatan) }}
 				</div>
 			</div>
 
@@ -124,22 +130,26 @@
 
 			{% if typeKetouva != '5050' %}
 				<div class="d-flex flex-nowrap align-middle">
-					<h3>Kala</h3>&nbsp;&nbsp;&nbsp;&nbsp;
-					<div class="pt-2">{{ form_row(form.orpheline) }}</div>
+					<h3>Kala</h3>
+					{# &nbsp;&nbsp;&nbsp;&nbsp; <div class="pt-2">{{ form_row(form.orpheline) }}</div> #}
 				</div>
 
 				{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' or typeKetouva == 'nikrea' %}
 					<div class="mb-2">
-						{{ form_widget(form.statutKala) }}
+						{{ form_row(form.statutKala) }}
 					</div>
 				{% endif %}
 			{% else %}
 				<h3>Kala</h3>
 				<div class="mb-2">
-					{{ form_widget(form.statutKala) }}
+					{{ form_row(form.statutKala) }}
 				</div>
 			{% endif %}
 
+			<div class="mb-2">
+				{{ form_row(form.provenanceKala) }}
+			</div>
+			
 			<div class="col-md-4 col-sm-12">
 				<div class="mb-3">
 					{{ form_label(form.nomKala) }}
@@ -151,6 +161,7 @@
 					<div class="input-group">
 						<span class="input-group-text fw-bold">'שתחי</span>
 						{{ form_widget(form.nomKala) }}
+						{# <span class="input-group-text fw-bold">מרת</span> #}
 					</div>
 				</div>
 			</div>
@@ -159,10 +170,16 @@
 				<div class="mb-3">
 					{{ form_label(form.nomPereKala) }}
 					{{ form_widget(form.titrePereKala) }}
-					<div class="input-group">
-						<span class="input-group-text fw-bold">'שי</span>
+					{# <div class="input-group"> #}
+						{# <span class="input-group-text fw-bold">'שי</span> #}
 						{{ form_widget(form.nomPereKala) }}
-					</div>
+					{# </div> #}
+				</div>
+			</div>
+			
+			<div class="col-md-4 col-sm-12">
+				<div class="mb-3">
+					{{ form_row(form.nomFamilleKala) }}
 				</div>
 			</div>
 
@@ -214,9 +231,9 @@
 
 			<h3>Verso de la Ketouva</h3>
 
-			<div class="col-md-3 col-sm-12" id="dateMariage1">
+			{# <div class="col-md-3 col-sm-12" id="dateMariage1">
 				{{ form_row(form.salleFrancais) }}
-			</div>
+			</div> #}
 
 			<div class="col-md-3 col-sm-12" id="dateMariage2">
 				{{ form_row(form.villeFrancais) }}

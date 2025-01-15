@@ -30,7 +30,7 @@ class TextOptimizer
     {
         $text = preg_replace('/( )+/', ' ', $text); // rempalce les espaces insécables multiple par un seul
         $text = preg_replace('/\s+/', ' ', $text); // remplace les espaces multiples par un seul
-        $text = preg_replace('/\s*\(\s*/', '( ', $text); // remplace les espaces avant les parenthèses par un seul
+        $text = preg_replace('/\s+\(\s+/', '( ', $text); // remplace les espaces avant les parenthèses par un seul
         $text = preg_replace('/  /', ' ', $text); // remplace un espace insécable suivi d'un espace par un seul
         $text = preg_replace('/  /', ' ', $text); // remplace un espace suivi d'un espace insécable par un seul
 

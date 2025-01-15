@@ -3,6 +3,7 @@
 namespace App\Form;;
 
 use App\Constant\Dechirer;
+use App\Constant\ProvenanceKala;
 use App\Constant\StatutKala as ConstantStatutKala;
 use App\Constant\StatutKetouva;
 use App\Constant\TitrePersonne as ConstantTitrePersonne;
@@ -67,6 +68,15 @@ class KetouvaFormType extends AbstractType
             }
         }
 
+        $provenancesKala = [];
+        foreach ((new \ReflectionClass(ProvenanceKala::class))->getConstants() as $value) {
+            if ($value == '') {
+                $provenancesKala['Rien'] = $value;
+            } else {
+                $provenancesKala[$value] = $value;
+            }
+        }
+
         $builder
             ->add('jourSemaine', EntityType::class, [
                 'placeholder' => 'Choisir un jour',
@@ -115,6 +125,13 @@ class KetouvaFormType extends AbstractType
                 ],
                 'required' => false
             ])
+            ->add('nomFamilleHatan', TextType::class, [
+                'label' => 'Nom de famille (écrit juste après le prénom du hatan, avant "ben...")',
+                'attr' => [
+                    'dir' => 'rtl'
+                ],
+                'required' => false
+            ])
             ->add('titrePereHatan', ChoiceType::class, [
                 'choices' => $titres,
                 'expanded' => true,
@@ -133,8 +150,25 @@ class KetouvaFormType extends AbstractType
                 ],
                 'required' => false
             ])
+            ->add('provenanceKala', ChoiceType::class, [
+                'choices' => $provenancesKala,
+                'label' => 'Cocher une case :',
+                'required' => true,
+                'expanded' => true,
+                'multiple' => false,
+                'label_attr' => [
+                    'class' => 'radio-inline'
+                ]
+            ])
             ->add('nomKala', TextType::class, [
                 'label' => 'Prénom',
+                'attr' => [
+                    'dir' => 'rtl'
+                ],
+                'required' => false
+            ])
+            ->add('nomFamilleKala', TextType::class, [
+                'label' => 'Nom de famille (écrit juste après le prénom de la kala, avant "bat...")',
                 'attr' => [
                     'dir' => 'rtl'
                 ],
@@ -160,6 +194,7 @@ class KetouvaFormType extends AbstractType
             ])
             ->add('statutKetouva', ChoiceType::class, [
                 'choices' => $statutKetouva,
+                'label' => 'Cocher une case :',
                 'expanded' => true,
                 'multiple' => false,
                 'label_attr' => [
@@ -188,10 +223,10 @@ class KetouvaFormType extends AbstractType
                 'label' => 'Nom du fichier',
                 'required' => false
             ])
-            ->add('salleFrancais', TextType::class, [
-                'label' => 'Salle du mariage (français)',
-                'required' => false
-            ])
+            // ->add('salleFrancais', TextType::class, [
+            //     'label' => 'Salle du mariage (français)',
+            //     'required' => false
+            // ])
             ->add('villeFrancais', TextType::class, [
                 'label' => 'Ville en français',
                 'required' => false
@@ -214,6 +249,7 @@ class KetouvaFormType extends AbstractType
         if ($options['type'] != TypeKetouva::BETOULA) {
             $builder->add('statutKala', ChoiceType::class, [
                 'choices' => $statutsKala,
+                'label' => 'Cocher une case :',
                 'required' => true,
                 'expanded' => true,
                 'multiple' => false,
@@ -226,11 +262,11 @@ class KetouvaFormType extends AbstractType
             ]);
         }
 
-        if ($options['type'] != TypeKetouva::CINQUANTE) {
-            $builder->add('orpheline', CheckboxType::class, [
-                'required' => false
-            ]);
-        }
+        // if ($options['type'] != TypeKetouva::CINQUANTE) {
+        //     $builder->add('orpheline', CheckboxType::class, [
+        //         'required' => false
+        //     ]);
+        // }
 
         if ($options['type'] == TypeKetouva::TAOUTA || $options['type'] == TypeKetouva::IRKESSA || $options['type'] == TypeKetouva::NIKREA) {
             $builder

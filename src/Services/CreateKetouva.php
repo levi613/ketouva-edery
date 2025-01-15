@@ -40,7 +40,8 @@ class CreateKetouva
     {
         $type = $ketouva->getTypeKetouva();
 
-        $provenanceKala = $this->calculeProvenanceKala->getProvenanceKala($ketouva);
+        // $provenanceKala = $this->calculeProvenanceKala->getProvenanceKala($ketouva);
+        $provenanceKala = $ketouva->getProvenanceKala();
         $moisKetouva = $this->calculeMois->getMois($ketouva->getMois(), $ketouva->getJourMois());
 
         $moisMariage = "";
@@ -138,9 +139,16 @@ class CreateKetouva
         $nomHatan = $ketouva->getTitreHatan() . ' ' . $ketouva->getNomHatan();
         $nomHatan = str_replace(' ',  ' ', $nomHatan);
         $modele = str_replace('nomHatan', '<strong><u>' . $nomHatan . '</u></strong>', $modele);
-        $modele = str_replace('nomPereHatan', '<strong><u>' . $ketouva->getTitrePereHatan() . ' ' . $ketouva->getNomPereHatan() . '</u></strong>', $modele);
-        $modele = str_replace('nomKala', '<strong><u>' . $ketouva->getNomKala() . '</u></strong>', $modele);
-        $modele = str_replace('nomPereKala', '<strong><u>' . $ketouva->getTitrePereKala() . ' ' . $ketouva->getNomPereKala() . '</u></strong>', $modele);
+        $nomFamilleHatan = str_replace(' ',  ' ', $ketouva->getNomFamilleHatan());
+        $modele = str_replace('nomFamilleHatan', '<strong><u>' . $nomFamilleHatan . '</u></strong>', $modele);
+        $nomPereHatan = str_replace(' ',  ' ', $ketouva->getNomPereHatan());
+        $modele = str_replace('nomPereHatan', '<strong><u>' . $ketouva->getTitrePereHatan() . ' ' . $nomPereHatan . '</u></strong>', $modele);
+        $nomKala = str_replace(' ',  ' ', $ketouva->getNomKala());
+        $modele = str_replace('nomKala', '<strong><u>' . $nomKala . '</u></strong>', $modele);
+        $nomFamilleKala = str_replace(' ',  ' ', $ketouva->getNomFamilleKala());
+        $modele = str_replace('nomFamilleKala', '<strong><u>' . $nomFamilleKala . '</u></strong>', $modele);
+        $nomPereKala = str_replace(' ',  ' ', $ketouva->getNomPereKala());
+        $modele = str_replace('nomPereKala', '<strong><u>' . $ketouva->getTitrePereKala() . ' ' . $nomPereKala . '</u></strong>', $modele);
         $modele = str_replace('provenanceKala', '<strong><u>' . $provenanceKala . '</u></strong>', $modele);
         $modele = str_replace('statutKetouva', '<strong><u>' . $ketouva->getStatutKetouva() . '</u></strong>', $modele);
 
@@ -173,12 +181,13 @@ class CreateKetouva
 
     public static function getTexteVersoPDF(Ketouva $ketouva)
     {
-        $texteVerso = "Ce Mariage a été célebré par le R. Mordehai EDERHY <br>Dans la salle : ";
+        $texteVerso = "Ce Mariage a été célebré par le R. Mordehai EDERHY <br>";
         if ($ketouva->getTypeKetouva() == TypeKetouva::TAOUTA || $ketouva->getTypeKetouva() == TypeKetouva::IRKESSA || $ketouva->getTypeKetouva() == TypeKetouva::NIKREA) {
-            $texteVerso = "Cette ketouba a été rédigée par le R. Mordehai EDERHY <br>Dans la salle : ";
+            $texteVerso = "Cette Ketouba a été rédigée par le R. Mordehai EDERHY <br> ";
         }
 
-        $texteVerso .= $ketouva->getSalleFrancais() . "<br>Ville : " . $ketouva->getVilleFrancais() . "<br>Code Postal : " . $ketouva->getCodePostalFrancais() . "<br>En Date du : " . $ketouva->getDateFrancais() . "<br>Email : mordehai.edri@gmail.com <br>Téléphone : (+33)0769688115";
+        $texteVerso .=  "Le " . $ketouva->getDateFrancais() . ", à " . $ketouva->getCodePostalFrancais() . " "  . $ketouva->getVilleFrancais() . " <br>";
+        $texteVerso .=  "Email : mordehai.edri@gmail.com - Téléphone : 07 69 68 81 15";
         return $texteVerso;
     }
 

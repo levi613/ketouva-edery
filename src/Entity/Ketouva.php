@@ -121,6 +121,12 @@ class Ketouva
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $dateFrancais = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $nomFamilleHatan = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $nomFamilleKala = null;
+
     public function __construct()
     {
         // titre personne par default  (reb)
@@ -542,6 +548,30 @@ class Ketouva
     public function setDateFrancais(?string $dateFrancais): static
     {
         $this->dateFrancais = $dateFrancais;
+
+        return $this;
+    }
+
+    public function getNomFamilleHatan(): ?string
+    {
+        return $this->nomFamilleHatan;
+    }
+
+    public function setNomFamilleHatan(?string $nomFamilleHatan): static
+    {
+        $this->nomFamilleHatan = $nomFamilleHatan;
+
+        return $this;
+    }
+
+    public function getNomFamilleKala(): ?string
+    {
+        return $this->nomFamilleKala;
+    }
+
+    public function setNomFamilleKala(?string $nomFamilleKala): static
+    {
+        $this->nomFamilleKala = $nomFamilleKala;
 
         return $this;
     }

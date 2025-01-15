@@ -91,7 +91,7 @@ class PdfGeneratorService
         }
 
         // Après la configuration de la police et avant le MultiCell
-        $optimizer = new TextOptimizer($pdf, $width, $x, $y, $lineHeight, 0.8, 0.95);
+        $optimizer = new TextOptimizer($pdf, $width, $x, $y, $lineHeight, 0.85, 0.95);
         $optimizer->renderText($text);
 
         // $pdf->SetXY($x, $y);
@@ -122,13 +122,49 @@ class PdfGeneratorService
 
         $pdf->AddPage();
         $pdf->setRTL(false);
-        $pdf->SetXY(10, 10);
+
+        // Ajout de la police personnalisée
+        $fontPath = __DIR__ . '/../../public/font/PinyonScript-Regular.ttf';
+        $fontFamily = TCPDF_FONTS::addTTFfont($fontPath, 'TrueTypeUnicode', '', 32);
+        // Configuration de la police
+        $pdf->SetFont($fontFamily, 'I', 20);
+
+        // Dimensions de la page
+        $pageWidth = $pdf->getPageWidth();
+        $pageHeight = $pdf->getPageHeight();
+
+        // Position du texte (vers le bas de la page)
+        $marginBottom = 60; // Marge par rapport au bas de la page
+        $yPosition = $pageHeight - $marginBottom;
+
+        // Largeur de la cellule (centrée sur la page)
+        $cellWidth = $pageWidth * 0.8; // Par exemple, 80% de la largeur de la page
+        $xPosition = ($pageWidth - $cellWidth) / 2;
+
         $texteVerso = CreateKetouva::getTexteVersoPDF($ketouva);
-        $pdf->MultiCell(500, 5, $texteVerso, 0, 'J', false, 1, 40, 40, true, 0, true, true, $height, 'T', true);
+
+        // Ajouter le texte avec MultiCell
+        $pdf->SetXY($xPosition, $yPosition);
+        $pdf->MultiCell(
+            $cellWidth,        // Largeur de la cellule
+            10,                // Hauteur de chaque ligne
+            $texteVerso,       // Texte à afficher
+            0,                 // Pas de bordure
+            'C',               // Texte centré
+            false,             // Pas de fond
+            1,
+            null,
+            null,
+            true,
+            0,
+            true               // Texte en html
+        );
+
+
 
 
         // Retourne le PDF
-        // return $pdf->Output($ketouva->getNomFichier(), 'I'); // Affichage du PDF dans le navigateur
+        return $pdf->Output($ketouva->getNomFichier(), 'I'); // Affichage du PDF dans le navigateur
         return $pdf->Output($ketouva->getNomFichier(), 'S'); // pour telecharger le PDF
     }
 }
