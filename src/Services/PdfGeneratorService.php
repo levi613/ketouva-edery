@@ -91,7 +91,7 @@ class PdfGeneratorService
         }
 
         // Après la configuration de la police et avant le MultiCell
-        $optimizer = new TextOptimizer($pdf, $width, $x, $y, $lineHeight, 0.85, 0.9);
+        $optimizer = new TextOptimizer($pdf, $width, $x, $y, $lineHeight, 0.87, 0.93);
         $optimizer->renderText($text);
 
         // $pdf->SetXY($x, $y);
