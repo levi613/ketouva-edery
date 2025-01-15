@@ -164,7 +164,7 @@ class PdfGeneratorService
 
 
         // Retourne le PDF
-        return $pdf->Output($ketouva->getNomFichier(), 'I'); // Affichage du PDF dans le navigateur
+        // return $pdf->Output($ketouva->getNomFichier(), 'I'); // Affichage du PDF dans le navigateur
         return $pdf->Output($ketouva->getNomFichier(), 'S'); // pour telecharger le PDF
     }
 }
