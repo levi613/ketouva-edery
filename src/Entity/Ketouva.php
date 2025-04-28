@@ -127,6 +127,9 @@ class Ketouva
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $nomFamilleKala = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?bool $hatanBahour = null;
+
     public function __construct()
     {
         // titre personne par default  (reb)
@@ -572,6 +575,18 @@ class Ketouva
     public function setNomFamilleKala(?string $nomFamilleKala): static
     {
         $this->nomFamilleKala = $nomFamilleKala;
+
+        return $this;
+    }
+
+    public function isHatanBahour(): ?bool
+    {
+        return $this->hatanBahour;
+    }
+
+    public function setHatanBahour(?bool $hatanBahour): static
+    {
+        $this->hatanBahour = $hatanBahour;
 
         return $this;
     }

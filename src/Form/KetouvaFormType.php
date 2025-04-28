@@ -330,6 +330,17 @@ class KetouvaFormType extends AbstractType
                     ]
                 ]);
             }
+        } else {
+            $builder->add('hatanBahour', CheckboxType::class, [
+                'label' => 'בחור',
+                'required' => false,
+                'label_attr' => [
+                    'class' => 'checkbox-inline'
+                ],
+                'attr' => [
+                    // 'dir' => 'rtl'
+                ]
+            ]);
         }
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {

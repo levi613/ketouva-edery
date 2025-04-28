@@ -136,8 +136,33 @@ class CreateKetouva
         $modele = str_replace('mois', '<strong><u>' . $moisKetouva . '</u></strong>', $modele);
         $modele = str_replace('annee', '<strong><u>' . $ketouva->getAnnee()->getHebreu() . '</u></strong>', $modele);
         $modele = str_replace('ville', '<strong><u>' . $ketouva->getVille() . '</u></strong>', $modele);
-        $nomHatan = $ketouva->getTitreHatan() . ' ' . $ketouva->getNomHatan();
+
+        $nomHatan1 = $ketouva->getNomHatan();
+        $nomHatan = $ketouva->getNomHatan();
+        if ($type == TypeKetouva::TAOUTA || $type == TypeKetouva::IRKESSA || $type == TypeKetouva::NIKREA) {
+            if ($ketouva->getTitreHatan() && $ketouva->getTitreHatan() != '') {
+                $nomHatan = $ketouva->getTitreHatan() . ' ' . $ketouva->getNomHatan();
+            }
+            $nomHatan1 = 'ש' . $nomHatan;
+        } else {
+            if ($ketouva->isHatanBahour() && $ketouva->getTitreHatan()) {
+                $nomHatan1 = 'שהבחור' . ' '  . $ketouva->getTitreHatan() . ' ' . $ketouva->getNomHatan();
+                $nomHatan = $ketouva->getTitreHatan() . ' ' . $ketouva->getNomHatan();
+            } elseif ($ketouva->isHatanBahour() && !$ketouva->getTitreHatan()) {
+                $nomHatan1 = 'שהבחור' . ' ' . $ketouva->getNomHatan();
+                $nomHatan = $ketouva->getNomHatan();
+            } elseif (!$ketouva->isHatanBahour() && $ketouva->getTitreHatan()) {
+                $nomHatan1 = 'ש' . $ketouva->getTitreHatan() . ' ' . $ketouva->getNomHatan();
+                $nomHatan = $ketouva->getTitreHatan() . ' ' . $ketouva->getNomHatan();
+            } elseif (!$ketouva->isHatanBahour() && !$ketouva->getTitreHatan()) {
+                $nomHatan1 = 'ש' . $ketouva->getNomHatan();
+                $nomHatan = $ketouva->getNomHatan();
+            }
+        }
+        $nomHatan1 = str_replace(' ',  ' ', $nomHatan1);
         $nomHatan = str_replace(' ',  ' ', $nomHatan);
+
+        $modele = str_replace('nomHatan1', '<strong><u>' . $nomHatan1 . '</u></strong>', $modele);
         $modele = str_replace('nomHatan', '<strong><u>' . $nomHatan . '</u></strong>', $modele);
         $nomFamilleHatan = str_replace(' ',  ' ', $ketouva->getNomFamilleHatan());
         $modele = str_replace('nomFamilleHatan', '<strong><u>' . $nomFamilleHatan . '</u></strong>', $modele);
