@@ -100,7 +100,10 @@
 			<div class="col-md-4 col-sm-12">
 				<div class="mb-3">
 					{{ form_label(form.nomHatan) }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					{{ form_widget(form.hatanBahour) }}
+					{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' or typeKetouva == 'nikrea' %}
+					{% else %}
+						{{ form_widget(form.hatanBahour) }}
+					{% endif %}
 					{{ form_widget(form.titreHatan) }}
 					<div class="input-group">
 						<span class="input-group-text fw-bold">'שי</span>
