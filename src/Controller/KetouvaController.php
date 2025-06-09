@@ -43,7 +43,7 @@ class KetouvaController extends AbstractController
 		if ($type == TypeKetouva::BETOULA || $type == TypeKetouva::CINQUANTE) {
 			$ketouva->setEcartLigne(9);
 		} else {
-			$ketouva->setEcartLigne(7);
+			$ketouva->setEcartLigne(7.7);
 		}
 
 		$formKetouva = $this->createForm(KetouvaFormType::class, $ketouva, [

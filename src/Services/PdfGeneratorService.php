@@ -50,10 +50,10 @@ class PdfGeneratorService
             $lineHeight = 9;
         }
         if ($ketouva->getTypeKetouva() == TypeKetouva::IRKESSA || $ketouva->getTypeKetouva() == TypeKetouva::TAOUTA || $ketouva->getTypeKetouva() == TypeKetouva::NIKREA) {
-            $fontSize = 13.9;
+            $fontSize = 12.9;
 
             if (!is_numeric($lineHeight) || $lineHeight === null || $lineHeight === "") {
-                $lineHeight = 7;
+                $lineHeight = 7.7;
             }
         }
         if (str_contains($modele, '3')) {
