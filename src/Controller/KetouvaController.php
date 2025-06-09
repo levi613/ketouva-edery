@@ -41,7 +41,7 @@ class KetouvaController extends AbstractController
 		}
 
 		if ($type == TypeKetouva::BETOULA || $type == TypeKetouva::CINQUANTE) {
-			$ketouva->setEcartLigne(8.5);
+			$ketouva->setEcartLigne(9);
 		} else {
 			$ketouva->setEcartLigne(7);
 		}

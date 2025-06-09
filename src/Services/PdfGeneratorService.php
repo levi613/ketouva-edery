@@ -44,10 +44,10 @@ class PdfGeneratorService
         // Ajustement de l'opacité du texte pour le rendre plus clair
         $pdf->setAlpha(0.8);
 
-        $fontSize = 17.3;
+        $fontSize = 16.2;
         $lineHeight = $ketouva->getEcartLigne();
         if (!is_numeric($lineHeight) || $lineHeight === null || $lineHeight === "") {
-            $lineHeight = 8.5;
+            $lineHeight = 9;
         }
         if ($ketouva->getTypeKetouva() == TypeKetouva::IRKESSA || $ketouva->getTypeKetouva() == TypeKetouva::TAOUTA || $ketouva->getTypeKetouva() == TypeKetouva::NIKREA) {
             $fontSize = 13.9;

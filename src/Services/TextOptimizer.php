@@ -114,13 +114,19 @@ class TextOptimizer
 
             while (
                 $currentWidth < $this->maxWidth * $this->minWidthRatio &&
-                !empty($nextLine) &&
-                count($nextLine) > 2
+                !empty($nextLine)
             ) {
                 // Déplacer un mot de la ligne suivante à la ligne actuelle
                 $wordToMove = array_shift($nextLine);
-                $currentLine[] = $wordToMove; // Ajouter ce mot à la ligne courante
+                $currentLine[] = $wordToMove;
                 $currentWidth = $this->calculateLineWidth($currentLine);
+
+                // Si la ligne suivante n'a plus qu'un mot, on le déplace aussi
+                if (count($nextLine) === 1) {
+                    $wordToMove = array_shift($nextLine);
+                    $currentLine[] = $wordToMove;
+                    $currentWidth = $this->calculateLineWidth($currentLine);
+                }
             }
 
             // Vérifier si des mots ont été déplacés correctement
@@ -160,12 +166,13 @@ class TextOptimizer
             if ($currentWidth < $this->maxWidth * $this->minWidthRatio) {
                 $tempLine = $currentLine;
                 $tempWidth = $currentWidth;
+                $wordsToMove = [];
 
                 while ($tempWidth < $this->maxWidth * $this->minWidthRatio && $currentLineIndex > 0) {
                     $previousLine = $lines[$currentLineIndex - 1];
 
-                    // Si la ligne précédente est trop courte ou n'a plus de mots, arrêter
-                    if (count($previousLine) <= 5) break;
+                    // Si la ligne précédente n'a plus de mots, arrêter
+                    if (empty($previousLine)) break;
 
                     // Obtenir le dernier mot de la ligne précédente
                     $lastWord = array_pop($previousLine);
@@ -177,15 +184,16 @@ class TextOptimizer
                         break;
                     }
 
-                    // Ajouter le mot à la ligne actuelle
-                    array_unshift($tempLine, $lastWord);
+                    // Ajouter le mot à la liste des mots à déplacer
+                    array_unshift($wordsToMove, $lastWord);
                     $tempWidth += $wordWidth;
 
                     // Mettre à jour la ligne précédente
                     $lines[$currentLineIndex - 1] = $previousLine;
                 }
 
-                // Mettre à jour la ligne actuelle
+                // Ajouter les mots déplacés à la ligne actuelle en préservant l'ordre
+                $tempLine = array_merge($wordsToMove, $tempLine);
                 $lines[$currentLineIndex] = $tempLine;
             }
         }
