@@ -20,12 +20,12 @@ final class Version20250728150122 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE ketouva ADD prix_pissoul VARCHAR(255) DEFAULT NULL, ADD option_pissoul1 VARCHAR(255) DEFAULT NULL, ADD option_pissoul2 VARCHAR(255) DEFAULT NULL, DROP statut_hatan');
+        $this->addSql('ALTER TABLE ketouva ADD prix_pissoul VARCHAR(255) DEFAULT NULL, ADD option_pissoul1 VARCHAR(255) DEFAULT NULL, ADD option_pissoul2 VARCHAR(255) DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE ketouva ADD statut_hatan TINYINT(1) DEFAULT NULL, DROP prix_pissoul, DROP option_pissoul1, DROP option_pissoul2');
+        $this->addSql('ALTER TABLE ketouva DROP prix_pissoul, DROP option_pissoul1, DROP option_pissoul2');
     }
 }
