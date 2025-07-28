@@ -130,6 +130,15 @@ class Ketouva
     #[ORM\Column(nullable: true)]
     private ?bool $hatanBahour = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $optionPissoul1 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $optionPissoul2 = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $prixPissoul = null;
+
     public function __construct()
     {
         // titre personne par default  (reb)
@@ -587,6 +596,42 @@ class Ketouva
     public function setHatanBahour(?bool $hatanBahour): static
     {
         $this->hatanBahour = $hatanBahour;
+
+        return $this;
+    }
+
+    public function getOptionPissoul1(): ?string
+    {
+        return $this->optionPissoul1;
+    }
+
+    public function setOptionPissoul1(?string $optionPissoul1): static
+    {
+        $this->optionPissoul1 = $optionPissoul1;
+
+        return $this;
+    }
+
+    public function getOptionPissoul2(): ?string
+    {
+        return $this->optionPissoul2;
+    }
+
+    public function setOptionPissoul2(?string $optionPissoul2): static
+    {
+        $this->optionPissoul2 = $optionPissoul2;
+
+        return $this;
+    }
+
+    public function getPrixPissoul(): ?string
+    {
+        return $this->prixPissoul;
+    }
+
+    public function setPrixPissoul(?string $prixPissoul): static
+    {
+        $this->prixPissoul = $prixPissoul;
 
         return $this;
     }

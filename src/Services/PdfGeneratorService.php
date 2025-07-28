@@ -98,7 +98,7 @@ class PdfGeneratorService
         // $pdf->MultiCell($width, 5, $optimizedText, 0, 'J', false, 1, $x, $y, true, 0, true, true, $height, 'T', true);
 
         // ecrire le texte en bas de la page
-        if ($ketouva->getTypeKetouva() == TypeKetouva::TAOUTA || $ketouva->getTypeKetouva() == TypeKetouva::IRKESSA || $ketouva->getTypeKetouva() == TypeKetouva::NIKREA) {
+        if ($ketouva->getTypeKetouva() == TypeKetouva::TAOUTA || $ketouva->getTypeKetouva() == TypeKetouva::IRKESSA || $ketouva->getTypeKetouva() == TypeKetouva::NIKREA || $ketouva->getTypeKetouva() == TypeKetouva::PISSOUL) {
             // Modele 1
             $x = 53; //
             $y = 363;

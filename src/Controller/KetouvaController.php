@@ -186,7 +186,7 @@ class KetouvaController extends AbstractController
 
 		$tailleModele =  'grand';
 		$fin = '';
-		if ($ketouva->getTypeKetouva() == TypeKetouva::TAOUTA || $ketouva->getTypeKetouva() == TypeKetouva::IRKESSA || $ketouva->getTypeKetouva() == TypeKetouva::NIKREA) {
+		if ($ketouva->getTypeKetouva() == TypeKetouva::TAOUTA || $ketouva->getTypeKetouva() == TypeKetouva::IRKESSA || $ketouva->getTypeKetouva() == TypeKetouva::NIKREA || $ketouva->getTypeKetouva() == TypeKetouva::PISSOUL) {
 			$fin = ModeleKetouva::FIN_REECRITURE;
 			$tailleModele = $ketouva->getTypeKetouva() != TypeKetouva::NIKREA ? 'petit' : '';
 		}

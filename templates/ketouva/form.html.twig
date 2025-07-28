@@ -16,6 +16,8 @@
 		{% set titrePage = "Déirkessa" %}
 	{% elseif lienActif=="nikrea" %}
 		{% set titrePage = "Dénikréa (Déchirée)" %}
+	{% elseif lienActif=="pissoul" %}
+		{% set titrePage = "Déichtaka'h pissoul" %}
 	{% endif %}
 
 	<h1 class="text-decoration-underline">Formulaire Ketouva
@@ -26,7 +28,7 @@
 
 		<div class="row">
 
-			{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' or typeKetouva == 'nikrea' %}
+			{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' or typeKetouva == 'nikrea' or typeKetouva == 'pissoul' %}
 				<h3>Date de la remise de la ketouva</h3>
 			{% else %}
 				<h3>Date</h3>
@@ -50,7 +52,7 @@
 
 			<hr>
 
-			{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' or typeKetouva == 'nikrea' %}
+			{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' or typeKetouva == 'nikrea' or typeKetouva == 'pissoul' %}
 				<h3>Date du mariage</h3>
 
 				{% set displayDate = 'block' %}
@@ -87,6 +89,20 @@
 					</div>
 				</div>
 			{% endif %}
+			
+			{% if typeKetouva == 'pissoul' %}
+				<div class="col-md-4 col-sm-12">
+					<div class="mb-3">
+						{{ form_row(form.optionPissoul1) }}
+					</div>
+					<div class="mb-3">
+						{{ form_row(form.optionPissoul2) }}
+					</div>
+					<div class="mb-3">
+						{{ form_row(form.prixPissoul) }}
+					</div>
+				</div>
+			{% endif %}
 
 			<div class="col-md-4 col-sm-12">
 				<div class="mb-3">
@@ -100,7 +116,7 @@
 			<div class="col-md-4 col-sm-12">
 				<div class="mb-3">
 					{{ form_label(form.nomHatan) }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' or typeKetouva == 'nikrea' %}
+					{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' or typeKetouva == 'nikrea' or typeKetouva == 'pissoul' %}
 					{% else %}
 						{{ form_widget(form.hatanBahour) }}
 					{% endif %}
@@ -138,7 +154,7 @@
 					{# &nbsp;&nbsp;&nbsp;&nbsp; <div class="pt-2">{{ form_row(form.orpheline) }}</div> #}
 				</div>
 
-				{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' or typeKetouva == 'nikrea' %}
+				{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' or typeKetouva == 'nikrea' or typeKetouva == 'pissoul' %}
 					<div class="mb-2">
 						{{ form_row(form.statutKala) }}
 					</div>
@@ -150,9 +166,11 @@
 				</div>
 			{% endif %}
 
-			<div class="mb-2">
-				{{ form_row(form.provenanceKala) }}
-			</div>
+			{% if typeKetouva != 'pissoul' %}
+				<div class="mb-2">
+					{{ form_row(form.provenanceKala) }}
+				</div>
+			{% endif %}
 			
 			<div class="col-md-4 col-sm-12">
 				<div class="mb-3">
@@ -195,7 +213,7 @@
 				{{ form_row(form.ville) }}
 			</div>
 
-			{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' or typeKetouva == 'nikrea' %}
+			{% if typeKetouva == 'taouta' or typeKetouva == 'irkessa' or typeKetouva == 'nikrea' or typeKetouva == 'pissoul' %}
 				<div class="col-md-4 col-sm-12">
 					{{ form_row(form.villeMariage) }}
 				</div>
@@ -265,7 +283,7 @@
 
 
 	<script>
-		{% if typeKetouva == '5050' or typeKetouva == 'taouta' or typeKetouva == 'irkessa' or typeKetouva == 'nikrea' %}
+		{% if typeKetouva == '5050' or typeKetouva == 'taouta' or typeKetouva == 'irkessa' or typeKetouva == 'nikrea' or typeKetouva == 'pissoul' %}
 			function autoRempli() {
 				if (document.getElementById('ketouva_form_statutKala_{{typeKetouva == "5050"?"3":"4"}}').checked == true) {
 					if (document.getElementById('ketouva_form_nomPereKala').value == "") {

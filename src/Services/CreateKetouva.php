@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Constant\ModeleKetouva;
+use App\Constant\OptionPissoul;
 use App\Constant\StatutKala;
 use App\Constant\TypeKetouva;
 use App\Entity\Ketouva;
@@ -48,7 +49,7 @@ class CreateKetouva
         $phrasePasDeDate = "";
         $dateMariage = "";
 
-        if ($type == TypeKetouva::TAOUTA || $type == TypeKetouva::NIKREA) {
+        if ($type == TypeKetouva::TAOUTA || $type == TypeKetouva::NIKREA || $type == TypeKetouva::PISSOUL) {
             $moisMariage = $this->calculeMois->getMois($ketouva->getMoisMariage(), $ketouva->getJourMoisMariage());
         }
 
@@ -90,17 +91,27 @@ class CreateKetouva
             case TypeKetouva::NIKREA:
                 $modele = ModeleKetouva::NIKREA;
                 break;
+            case TypeKetouva::PISSOUL:
+                $modele = ModeleKetouva::PISSOUL;
+                break;
 
             default:
                 $modele = '';
                 break;
         }
 
-        if ($type == TypeKetouva::TAOUTA || $type == TypeKetouva::IRKESSA || $type == TypeKetouva::NIKREA) {
+        if ($type == TypeKetouva::TAOUTA || $type == TypeKetouva::IRKESSA || $type == TypeKetouva::NIKREA || $type == TypeKetouva::PISSOUL) {
             $statutKala = StatutKala::DEFAULT;
             foreach ((new \ReflectionClass(StatutKala::class))->getConstants() as $statut) {
                 if ($ketouva->getStatutKala() == $statut['hebreu']) {
                     $statutKala = $statut;
+                }
+            }
+
+            $prixPissoul = OptionPissoul::DEFAULT;
+            foreach ((new \ReflectionClass(OptionPissoul::class))->getConstants() as $option) {
+                if (isset($option['base']) && $ketouva->getPrixPissoul() == $option['base']) {
+                    $prixPissoul = $option;
                 }
             }
 
@@ -114,7 +125,7 @@ class CreateKetouva
             $modele = str_replace('moitiePrix', '<strong><u>' . $statutKala['moitiePrix'] . '</u></strong>', $modele);
 
 
-            if ($type == TypeKetouva::TAOUTA || $type == TypeKetouva::NIKREA) {
+            if ($type == TypeKetouva::TAOUTA || $type == TypeKetouva::NIKREA || $type == TypeKetouva::PISSOUL) {
                 $modele = str_replace('jourSemaineMariage', '<strong><u>' . $ketouva->getJourSemaineMariage()->getHebreu() . '</u></strong>', $modele);
                 $modele = str_replace('jourMoisMariage', '<strong><u>' . $ketouva->getJourMoisMariage()->getHebreu() . '</u></strong>', $modele);
                 $modele = str_replace('moisMariage', '<strong><u>' . $moisMariage . '</u></strong>', $modele);
@@ -128,6 +139,13 @@ class CreateKetouva
 
             if ($type == TypeKetouva::NIKREA) {
                 $modele = str_replace('dechirer', '<strong><u>' . $ketouva->getDechirer() . '</u></strong>', $modele);
+            }
+
+            if ($type == TypeKetouva::PISSOUL) {
+                $modele = str_replace('optionPissoul1', '<strong><u>' . $ketouva->getOptionPissoul1() . '</u></strong>', $modele);
+                $modele = str_replace('optionPissoul2', '<strong><u>' . $ketouva->getOptionPissoul2() . '</u></strong>', $modele);
+                $modele = str_replace('base', '<strong><u>' . $prixPissoul['base'] . '</u></strong>', $modele);
+                $modele = str_replace('ajout', '<strong><u>' . $prixPissoul['ajout'] . '</u></strong>', $modele);
             }
         }
 

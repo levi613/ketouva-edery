@@ -14,6 +14,15 @@
 		{% set taoutaActive = "" %}
 		{% set irkessaActive = "" %}
 		{% set nikreaActive = "" %}
+		{% set pissoulActive = "" %}
+
+		{% if lienActif is not defined %}
+			{% set lienActif = "" %}
+		{% endif %}
+
+		{% if lienActif == "listKetouva" %}
+			{% set listKetouvaActive = "active" %}
+		{% endif %}
 
 		{% if lienActif is defined %}
 
@@ -31,6 +40,9 @@
 
 			{% elseif lienActif == "nikrea" %}
 				{% set nikreaActive = "active" %}
+					
+			{% elseif lienActif == "pissoul" %}
+				{% set pissoulActive = "active" %}
 
 			{% elseif lienActif == "listKetouva" %}
 				{% set listKetouvaActive = "active" %}
@@ -56,6 +68,9 @@
 					</li>
 					<li class="nav-item">
 						<a class="nav-link {{nikreaActive}}"  href="{{path('create_ketouva', {'type':'nikrea'})}}">Dénikréa</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link {{pissoulActive}}"  href="{{path('create_ketouva', {'type':'pissoul'})}}">Déichtaka'h pissoul</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link {{listKetouvaActive}}"  href="{{path('ketouva_list')}}">Liste Ketouvot</a>

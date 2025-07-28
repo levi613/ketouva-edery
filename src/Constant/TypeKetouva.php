@@ -9,4 +9,5 @@ class TypeKetouva
     public const TAOUTA = 'taouta';
     public const IRKESSA = 'irkessa';
     public const NIKREA = 'nikrea';
+    public const PISSOUL = 'pissoul';
 }

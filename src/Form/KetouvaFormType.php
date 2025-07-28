@@ -3,6 +3,7 @@
 namespace App\Form;;
 
 use App\Constant\Dechirer;
+use App\Constant\OptionPissoul;
 use App\Constant\ProvenanceKala;
 use App\Constant\StatutKala as ConstantStatutKala;
 use App\Constant\StatutKetouva;
@@ -104,7 +105,7 @@ class KetouvaFormType extends AbstractType
                 'attr' => [
                     'dir' => 'rtl'
                 ],
-                'label' => $options['type'] == TypeKetouva::TAOUTA || $options['type'] == TypeKetouva::IRKESSA || $options['type'] == TypeKetouva::NIKREA ? 'Ville de la remise de la ketouva' : null,
+                'label' => $options['type'] == TypeKetouva::TAOUTA || $options['type'] == TypeKetouva::IRKESSA || $options['type'] == TypeKetouva::NIKREA || $options['type'] == TypeKetouva::PISSOUL ? 'Ville de la remise de la ketouva' : null,
                 'required' => false
             ])
             ->add('titreHatan', ChoiceType::class, [
@@ -149,16 +150,6 @@ class KetouvaFormType extends AbstractType
                     'dir' => 'rtl'
                 ],
                 'required' => false
-            ])
-            ->add('provenanceKala', ChoiceType::class, [
-                'choices' => $provenancesKala,
-                'label' => 'Cocher une case :',
-                'required' => true,
-                'expanded' => true,
-                'multiple' => false,
-                'label_attr' => [
-                    'class' => 'radio-inline'
-                ]
             ])
             ->add('nomKala', TextType::class, [
                 'label' => 'Prénom',
@@ -246,6 +237,20 @@ class KetouvaFormType extends AbstractType
                 'label' => 'Réinitialiser'
             ]);
 
+
+        if ($options['type'] != TypeKetouva::PISSOUL) {
+            $builder->add('provenanceKala', ChoiceType::class, [
+                'choices' => $provenancesKala,
+                'label' => 'Cocher une case :',
+                'required' => true,
+                'expanded' => true,
+                'multiple' => false,
+                'label_attr' => [
+                    'class' => 'radio-inline'
+                ]
+            ]);
+        }
+
         if ($options['type'] != TypeKetouva::BETOULA) {
             $builder->add('statutKala', ChoiceType::class, [
                 'choices' => $statutsKala,
@@ -268,7 +273,7 @@ class KetouvaFormType extends AbstractType
         //     ]);
         // }
 
-        if ($options['type'] == TypeKetouva::TAOUTA || $options['type'] == TypeKetouva::IRKESSA || $options['type'] == TypeKetouva::NIKREA) {
+        if ($options['type'] == TypeKetouva::TAOUTA || $options['type'] == TypeKetouva::IRKESSA || $options['type'] == TypeKetouva::NIKREA || $options['type'] == TypeKetouva::PISSOUL) {
             $builder
                 ->add('jourSemaineMariage', EntityType::class, [
                     'placeholder' => 'Choisir un jour',
@@ -330,6 +335,61 @@ class KetouvaFormType extends AbstractType
                     ]
                 ]);
             }
+
+            if ($options['type'] == TypeKetouva::PISSOUL) {
+                $optionPissoul1 = [OptionPissoul::SAFEK => OptionPissoul::SAFEK, OptionPissoul::PISSOUL => OptionPissoul::PISSOUL];
+                $optionPissoul2 = [
+                    OptionPissoul::BEKIDOUCHIN => OptionPissoul::BEKIDOUCHIN,
+                    OptionPissoul::BEEDEI_HAKIDOUCHIN => OptionPissoul::BEEDEI_HAKIDOUCHIN
+                ];
+                $prixPissoul = [
+                    OptionPissoul::CINQUANTE_LITRIN['base'] => OptionPissoul::CINQUANTE_LITRIN['base'],
+                    OptionPissoul::VINGT_CINQ_LITRIN['base'] => OptionPissoul::VINGT_CINQ_LITRIN['base'],
+                    OptionPissoul::CENT_KESSEF['base'] => OptionPissoul::CENT_KESSEF['base'],
+                    OptionPissoul::CINQUANTE_KESSEF['base'] => OptionPissoul::CINQUANTE_KESSEF['base']
+                ];
+
+                $builder
+                    ->add('optionPissoul1', ChoiceType::class, [
+                        'choices' => $optionPissoul1,
+                        'expanded' => true,
+                        'multiple' => false,
+                        'label_attr' => [
+                            'class' => ''
+                        ],
+                        'required' => true,
+                        'attr' => [
+                            // 'dir' => 'rtl'
+                        ],
+                        'label' => 'Option 1 :'
+                    ])
+                    ->add('optionPissoul2', ChoiceType::class, [
+                        'choices' => $optionPissoul2,
+                        'expanded' => true,
+                        'multiple' => false,
+                        'label_attr' => [
+                            'class' => ''
+                        ],
+                        'required' => true,
+                        'attr' => [
+                            // 'dir' => 'rtl'
+                        ],
+                        'label' => 'Option 2 :'
+                    ])
+                    ->add('prixPissoul', ChoiceType::class, [
+                        'choices' => $prixPissoul,
+                        'expanded' => true,
+                        'multiple' => false,
+                        'label_attr' => [
+                            'class' => ''
+                        ],
+                        'required' => true,
+                        'attr' => [
+                            // 'dir' => 'rtl'
+                        ],
+                        'label' => 'Option 3 :'
+                    ]);
+            }
         } else {
             $builder->add('hatanBahour', CheckboxType::class, [
                 'label' => 'בחור',
@@ -365,7 +425,7 @@ class KetouvaFormType extends AbstractType
                         'choice_label' => 'num'
                     ]);
 
-                if ($ketouva->getTypeKetouva() == TypeKetouva::TAOUTA || $ketouva->getTypeKetouva() == TypeKetouva::IRKESSA || $ketouva->getTypeKetouva() == TypeKetouva::NIKREA) {
+                if ($ketouva->getTypeKetouva() == TypeKetouva::TAOUTA || $ketouva->getTypeKetouva() == TypeKetouva::IRKESSA || $ketouva->getTypeKetouva() == TypeKetouva::NIKREA || $ketouva->getTypeKetouva() == TypeKetouva::PISSOUL) {
                     $form->add('anneeMariage', EntityType::class, [
                         'placeholder' => 'Choisir une année',
                         'label' => 'Année',
@@ -384,7 +444,7 @@ class KetouvaFormType extends AbstractType
                         'choice_label' => 'num'
                     ]);
 
-                if ($ketouva->getTypeKetouva() == TypeKetouva::TAOUTA || $ketouva->getTypeKetouva() == TypeKetouva::IRKESSA || $ketouva->getTypeKetouva() == TypeKetouva::NIKREA) {
+                if ($ketouva->getTypeKetouva() == TypeKetouva::TAOUTA || $ketouva->getTypeKetouva() == TypeKetouva::IRKESSA || $ketouva->getTypeKetouva() == TypeKetouva::NIKREA || $ketouva->getTypeKetouva() == TypeKetouva::PISSOUL) {
                     $form->add('anneeMariage', EntityType::class, [
                         'placeholder' => 'Choisir une année',
                         'label' => 'Année',
