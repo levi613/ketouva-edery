@@ -14,7 +14,10 @@ class PdfGeneratorService
     public function generatePdf(string $text, $modele, Ketouva $ketouva): string
     {
         // Création d'un nouveau PDF au format A3
-        $pdf = new Fpdi('P', 'mm', 'A3', true, 'UTF-8', false);
+        // $pdf = new Fpdi('P', 'mm', 'A3', true, 'UTF-8', false);
+
+        // Création d'un nouveau PDF au format SRA3
+        $pdf = new Fpdi('P', 'mm', 'SRA3', true, 'UTF-8', false);
 
         // Configuration de base
         $pdf->SetCreator('Ketouva');

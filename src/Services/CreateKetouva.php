@@ -227,7 +227,7 @@ class CreateKetouva
 
     public static function getTexteVersoPDF(Ketouva $ketouva)
     {
-        $texteVerso = "Ce Mariage a été célebré par le R. Mordehai EDERHY <br>";
+        $texteVerso = "Ce Mariage a été célébré par le R. Mordehai EDERHY <br>";
         if ($ketouva->getTypeKetouva() == TypeKetouva::TAOUTA || $ketouva->getTypeKetouva() == TypeKetouva::IRKESSA || $ketouva->getTypeKetouva() == TypeKetouva::NIKREA) {
             $texteVerso = "Cette Ketouba a été rédigée par le R. Mordehai EDERHY <br> ";
         }
