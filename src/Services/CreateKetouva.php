@@ -120,7 +120,9 @@ class CreateKetouva
             $modele = str_replace('typePaiement', '<strong><u>' . $statutKala['typePaiement'] . '</u></strong>', $modele);
             $modele = str_replace('statutKetouva', '<strong><u>' . $ketouva->getStatutKetouva() . '</u></strong>', $modele);
             $modele = str_replace('prix2', '<strong><u>' . $statutKala['prix2'] . '</u></strong>', $modele);
-            $modele = str_replace('prix', '<strong><u>' . $statutKala['prix'] . '</u></strong>', $modele);
+            if ($type != TypeKetouva::PISSOUL) {
+                $modele = str_replace('prix', '<strong><u>' . $statutKala['prix'] . '</u></strong>', $modele);
+            }
             $modele = str_replace('beMoitiePrix', '<strong><u>' . $statutKala['beMoitiePrix'] . '</u></strong>', $modele);
             $modele = str_replace('moitiePrix', '<strong><u>' . $statutKala['moitiePrix'] . '</u></strong>', $modele);
 
@@ -146,6 +148,7 @@ class CreateKetouva
                 $modele = str_replace('optionPissoul2', '<strong><u>' . $ketouva->getOptionPissoul2() . '</u></strong>', $modele);
                 $modele = str_replace('base', '<strong><u>' . $prixPissoul['base'] . '</u></strong>', $modele);
                 $modele = str_replace('ajout', '<strong><u>' . $prixPissoul['ajout'] . '</u></strong>', $modele);
+                $modele = str_replace('prix', '<strong><u>' . $ketouva->getOptionPissoul3() . '</u></strong>', $modele);
             }
         }
 

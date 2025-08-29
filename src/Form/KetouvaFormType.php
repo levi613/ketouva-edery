@@ -342,6 +342,7 @@ class KetouvaFormType extends AbstractType
                     OptionPissoul::BEKIDOUCHIN => OptionPissoul::BEKIDOUCHIN,
                     OptionPissoul::BEEDEI_HAKIDOUCHIN => OptionPissoul::BEEDEI_HAKIDOUCHIN
                 ];
+                $optionPissoul3 = [OptionPissoul::CENT_ZOUZ => OptionPissoul::CENT_ZOUZ, OptionPissoul::DEUX_CENT_ZOUZ => OptionPissoul::DEUX_CENT_ZOUZ];
                 $prixPissoul = [
                     OptionPissoul::CINQUANTE_LITRIN['base'] => OptionPissoul::CINQUANTE_LITRIN['base'],
                     OptionPissoul::VINGT_CINQ_LITRIN['base'] => OptionPissoul::VINGT_CINQ_LITRIN['base'],
@@ -376,6 +377,19 @@ class KetouvaFormType extends AbstractType
                         ],
                         'label' => 'Option 2 :'
                     ])
+                    ->add('optionPissoul3', ChoiceType::class, [
+                        'choices' => $optionPissoul3,
+                        'expanded' => true,
+                        'multiple' => false,
+                        'label_attr' => [
+                            'class' => ''
+                        ],
+                        'required' => true,
+                        'attr' => [
+                            // 'dir' => 'rtl'
+                        ],
+                        'label' => 'Option 3 :'
+                    ])
                     ->add('prixPissoul', ChoiceType::class, [
                         'choices' => $prixPissoul,
                         'expanded' => true,
@@ -387,7 +401,7 @@ class KetouvaFormType extends AbstractType
                         'attr' => [
                             // 'dir' => 'rtl'
                         ],
-                        'label' => 'Option 3 :'
+                        'label' => 'Option 4 :'
                     ]);
             }
         } else {

@@ -32,6 +32,9 @@ class OptionPissoul
         'ajout' => 'עוד חמישים כסף צרוףסך הכל מאה זקוקים כסף צרוף'
     ];
 
+    public const CENT_ZOUZ = 'כסף זוזי מאה';
+    public const DEUX_CENT_ZOUZ = 'כסף זוזי מאתן';
+
     public const DEFAULT = [
         'base' => '',
         'ajout' => ''

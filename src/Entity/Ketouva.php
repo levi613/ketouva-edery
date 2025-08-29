@@ -139,6 +139,9 @@ class Ketouva
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $prixPissoul = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $optionPissoul3 = null;
+
     public function __construct()
     {
         // titre personne par default  (reb)
@@ -632,6 +635,18 @@ class Ketouva
     public function setPrixPissoul(?string $prixPissoul): static
     {
         $this->prixPissoul = $prixPissoul;
+
+        return $this;
+    }
+
+    public function getOptionPissoul3(): ?string
+    {
+        return $this->optionPissoul3;
+    }
+
+    public function setOptionPissoul3(?string $optionPissoul3): static
+    {
+        $this->optionPissoul3 = $optionPissoul3;
 
         return $this;
     }
